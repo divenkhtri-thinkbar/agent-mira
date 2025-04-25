@@ -1,239 +1,323 @@
-"use client";
-
 import { useState, useRef, useEffect } from "react";
 import { X, File as FileIcon } from "lucide-react";
+import { uploadImage } from '@/services/apiService';
+import { toast } from "react-toastify";
+import { selectPropertyData } from "@/slices/propertySlice";
+import { useSelector } from "react-redux";
+import { useCurrentPage } from "@/utils/routeUtils";
+import { uploadFile } from "@/config/text.json";
 
 interface DreamHomeFormProps {
-  onSubmit: (data: { description: string; files: File[] }) => void;
-  onSkip?: () => void; // Optional callback for skip action
-  text?: string;
+    onSubmit: (data: { files: File[] }) => void;
+    onSkip?: () => void; // Optional callback for skip action
+    question?: any;
+    text?: string
 }
 
-export function DreamHomeForm({ onSubmit, onSkip, text }: DreamHomeFormProps) {
-  const [description, setDescription] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
-  const [uploadProgress, setUploadProgress] = useState<{ [key: number]: number }>({});
-  const [submitted, setSubmitted] = useState(false); // Track form submission state
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const animationRefs = useRef<{ [key: number]: number }>({}); // Store animation frame IDs
+export function DreamHomeForm({ onSubmit, onSkip, question }: DreamHomeFormProps) {
+    const [submitted, setSubmitted] = useState(false);
+    const [files, setFiles] = useState<File[]>([]);
+    const [uploadProgress, setUploadProgress] = useState<{ [key: number]: number }>({});
+    const [isLoading, setIsLoading] = useState(false); // Add loading state
+    const [isUploading, setIsUploading] = useState(false); // Track if upload is in progress
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const animationRefs = useRef<{ [key: number]: number }>({}); // Store animation frame IDs
 
-  // Handle file drop
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    if (submitted) return; // Prevent drops after submission
-    e.preventDefault();
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
-  };
+    const propertyInfo = useSelector(selectPropertyData);
+    const currentPage = useCurrentPage();
 
-  // Handle file input change
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (submitted) return; // Prevent file changes after submission
-    if (e.target.files) {
-      const newFiles = Array.from(e.target.files);
-      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    }
-  };
+    // Handle file drop - check both submitted and isUploading states
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        if (submitted || isLoading || isUploading) return; // Prevent drops when uploading or submitted
+        e.preventDefault();
+        // Only take the first file
+        const droppedFiles = Array.from(e.dataTransfer.files);
+        if (droppedFiles.length > 0) {
+            setFiles([droppedFiles[0]]);  // Replace existing files with just the new one
+            setUploadProgress({}); // Reset progress completely
+            setIsUploading(true); // Set uploading state to true when a file is dropped
+        }
+    };
 
-  // Handle file removal
-  const removeFile = (index: number) => {
-    if (submitted) return; // Prevent removal after submission
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-    setUploadProgress((prev) => {
-      const newProgress = { ...prev };
-      delete newProgress[index];
-      return newProgress;
-    });
-    if (animationRefs.current[index]) {
-      cancelAnimationFrame(animationRefs.current[index]);
-      delete animationRefs.current[index];
-    }
-  };
+    // Handle file input change - check both submitted and isUploading states
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (submitted || isLoading || isUploading) return; // Prevent file changes when uploading or submitted
+        if (e.target.files && e.target.files.length > 0) {
+            // Only take the first file
+            setFiles([e.target.files[0]]);  // Replace existing files with just the new one
+            setUploadProgress({}); // Reset progress completely
+            setIsUploading(true); // Set uploading state to true when a file is selected
+        }
+    };
 
-  // Smooth upload progress animation
-  useEffect(() => {
-    if (submitted) return; // Stop animations if submitted
-    files.forEach((_, index) => {
-      if (!(index in uploadProgress)) {
-        const startTime = performance.now();
-        const duration = 5000; // 5 seconds for smooth animation
-
-        const animateProgress = (timestamp: number) => {
-          const elapsed = timestamp - startTime;
-          const progress = Math.min((elapsed / duration) * 100, 100); // Linear progress
-
-          setUploadProgress((prev) => ({
-            ...prev,
-            [index]: progress,
-          }));
-
-          if (progress < 100) {
-            animationRefs.current[index] = requestAnimationFrame(animateProgress);
-          } else {
-            delete animationRefs.current[index]; // Clean up when done
-          }
-        };
-
-        animationRefs.current[index] = requestAnimationFrame(animateProgress);
-
-        // Cleanup on unmount or file removal
-        return () => {
-          if (animationRefs.current[index]) {
+    // Handle file removal - allow removing only if not in loading state
+    const removeFile = (index: number) => {
+        if (submitted || isLoading) return; // Prevent removal after submission or during API call
+        
+        // Cancel any ongoing animation for this file
+        if (animationRefs.current[index]) {
             cancelAnimationFrame(animationRefs.current[index]);
-          }
+            delete animationRefs.current[index];
+        }
+        
+        // Remove the file
+        setFiles([]);  // Clear all files instead of filtering
+        
+        // Completely reset progress state
+        setUploadProgress({});
+        
+        // Reset uploading state to allow new uploads
+        setSubmitted(false);
+        setIsLoading(false);
+        setIsUploading(false);
+    };
+
+    // Smooth upload progress animation - modified to handle file changes better
+    useEffect(() => {
+        if (submitted) return; // Stop animations if submitted
+        
+        // Clear any existing animations when files change
+        Object.keys(animationRefs.current).forEach(key => {
+            cancelAnimationFrame(animationRefs.current[Number(key)]);
+            delete animationRefs.current[Number(key)];
+        });
+        
+        // Start new animations for current files
+        files.forEach((_, index) => {
+            // Always start a new animation when files change
+            const startTime = performance.now();
+            const duration = 5000; // 5 seconds for smooth animation
+
+            const animateProgress = (timestamp: number) => {
+                const elapsed = timestamp - startTime;
+                const progress = Math.min((elapsed / duration) * 100, 100); // Linear progress
+
+                setUploadProgress(prev => ({
+                    ...prev,
+                    [index]: progress,
+                }));
+
+                if (progress < 100) {
+                    animationRefs.current[index] = requestAnimationFrame(animateProgress);
+                } else {
+                    delete animationRefs.current[index]; // Clean up when done
+                    // Set uploading to false when progress reaches 100%
+                    if (progress === 100) {
+                        setIsUploading(false);
+                    }
+                }
+            };
+
+            // Start the animation
+            animationRefs.current[index] = requestAnimationFrame(animateProgress);
+        });
+
+        // Cleanup on unmount
+        return () => {
+            Object.keys(animationRefs.current).forEach(key => {
+                cancelAnimationFrame(animationRefs.current[Number(key)]);
+            });
         };
-      }
-    });
-  }, [files, uploadProgress, submitted]);
+    }, [files, submitted]); // Remove uploadProgress dependency to prevent loops
 
-  // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (submitted) return; // Prevent multiple submissions
-    setSubmitted(true);
-    onSubmit({ description, files });
-  };
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (submitted || isLoading) return; // Prevent multiple submissions
+        
+        // Validation
+        if (files.length === 0) {
+            toast.error("Please upload a file");
+            return;
+        }
+        
+        try {
+            setIsLoading(true);
+            // Keep isUploading true during the actual upload to API
+            setIsUploading(true);
+            
+            // Create FormData object
+            const formData = new FormData();
+        
+            // formData.append("description", "na");
+            // Append the file to FormData under "file" key
+            if (files.length > 0) {
+                formData.append("file", files[0]);
+            }
+            
+            // Call API service
+            if (!propertyInfo?.propertyId) {
+                toast.error("Property ID is required");
+                setSubmitted(false);
+                setIsLoading(false);
+                setIsUploading(false);
+                setFiles([]);
+                return;
+            }
 
-  // Handle skip action
-  const handleSkip = () => {
-    if (submitted) return; // Prevent skip after submission
-    setSubmitted(true); // Treat skip as a submission
-    if (onSkip) {
-      onSkip();
-    } else {
-      onSubmit({ description: "", files: [] });
-    }
-  };
+            // Send FormData directly (not as Record<string, string>)
+            const apiResponse = await uploadImage(propertyInfo.propertyId, currentPage, formData);
+            
+            if(apiResponse?.code === 200) { 
+                // Show success toast
+                toast.success("File uploaded successfully!");
+                setFiles([]);
+                // Set submitted state
+                setSubmitted(false);
+                setIsLoading(false);
+                setIsUploading(false);
+                
+                // Call the original onSubmit handler
+                onSubmit({ files });
+            } 
+            else {
+                toast.error((apiResponse as any)?.response?.message || "Upload failed. Please try again.");
+            }
+            
+        } catch (error) {
+            // Handle API error
+            console.error("Upload failed:", error);
+            toast.error("Upload failed. Please try again.");
+        } finally {
+            setIsLoading(false);
+            setIsUploading(false); // Reset uploading state regardless of success/failure
+        }
+    };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Message */}
-      <p className="text-[#272727] text-base font-[Geologica] font-normal">
-        {text}
-      </p>
+    // Handle skip action
+    const handleSkip = () => {
+        if (submitted) return; // Prevent skip after submission
+        setSubmitted(true); // Treat skip as a submission
+        if (onSkip) {
+            onSkip();
+        } 
+        else {
+            onSubmit({ files: [] });
+        }
+    };
 
-      {/* Text Area */}
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Describe your dream home here…"
-        className={`w-full h-24 p-2 rounded-[12px] bg-white text-[#272727] placeholder:text-sm font-[Geologica] font-normal placeholder-[#272727] focus:outline-none focus:ring-2 focus:ring-[#0036AB] ${
-          submitted ? "cursor-not-allowed opacity-50" : ""
-        }`}
-        disabled={submitted}
-      />
+    return (
+        <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Message */}
+            {/* <p className="text-[#272727] text-base font-[Geologica] font-normal">
+                Now you can type, upload images to describe your dream home.
+            </p> */}
 
-      {/* Upload Section */}
-      <div className="space-y-1">
-        <p className="text-[#272727] text-base font-[Geologica] font-normal">
-          Upload Files
-        </p>
-        <p className="text-[#8D8D8D] text-xs font-[Geologica] font-normal">
-          JPEG, PNG, MP4, MOV.
-        </p>
+            {/* Upload Section */}
+            <div className="space-y-1">
+                <p className="text-[#272727] text-base font-[Geologica] font-normal">
+                    Upload File
+                </p>
+                <p className="text-[#8D8D8D] text-xs font-[Geologica] font-normal">
+                    {uploadFile?.fileType}
+                </p>
 
-        {/* Upload Box */}
-        <div
-          onDrop={handleDrop}
-          onDragOver={(e) => e.preventDefault()}
-          onClick={() => !submitted && fileInputRef.current?.click()}
-          className={`w-full p-6 border-2 border-dashed border-[#171717] rounded-md flex flex-col items-center justify-center ${
-            submitted ? "cursor-not-allowed opacity-50 border-[#171717]" : "cursor-pointer hover:border-[#0036AB]"
-          }`}
-        >
-          <div className="w-10 h-10 bg-transparent border border-black rounded-full flex items-center justify-center">
-            <FileIcon className="w-5 h-5 text-gray-500" />
-          </div>
-          <p className="mt-2 text-[#272727] text-base font-[Geologica] font-normal">
-            Click to upload or Drag & drop
-          </p>
-          <p className="text-[#8D8D8D] text-xs font-[Geologica] font-normal">
-            Maximum FILE 2.1 GB
-          </p>
-          <input
-            ref={fileInputRef}
-            type="file"
-            multiple
-            accept=".jpeg,.png,.mp4,.mov"
-            onChange={handleFileChange}
-            className="hidden"
-            disabled={submitted}
-          />
-        </div>
-
-        {/* Uploaded Files */}
-        {files.length > 0 && (
-          <div className="mt-4 space-y-4">
-            {files.map((file, index) => (
-              <div
-                key={index}
-                className="relative p-4 rounded-md bg-black/5 flex flex-col"
-              >
-                {/* File Info */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <div className="bg-white px-2 py-1.5 rounded-sm border-2 border-[#CACACA]">
-                      <FileIcon className="w-5 h-5 text-gray-500" />
-                    </div>
-                    <div>
-                      <p className="text-[#383838] text-xs font-[Geologica] font-normal">
-                        {file.name}
-                      </p>
-                      <p className="text-[#8A8A8A] text-xs font-[Geologica] font-normal">
-                        {(file.size / (1024 * 1024)).toFixed(2)} MB
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => removeFile(index)}
-                    className={`absolute top-2 right-2 text-black hover:text-[#1354B6] ${
-                      submitted ? "cursor-not-allowed opacity-50" : ""
+                {/* Upload Box - Check isUploading state */}
+                <div
+                    onDrop={handleDrop}
+                    onDragOver={(e) => e.preventDefault()}
+                    onClick={() => !submitted && !isLoading && !isUploading && fileInputRef.current?.click()}
+                    className={`w-full p-6 border-2 border-dashed border-[#171717] rounded-md flex flex-col items-center justify-center ${
+                        submitted || isLoading || isUploading  || files.length > 0
+                            ? "cursor-not-allowed opacity-50 border-[#171717]" 
+                            : "cursor-pointer hover:border-[#0036AB]"
                     }`}
-                    disabled={submitted}
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
+                >
+                    <div className="w-10 h-10 bg-transparent border border-black rounded-full flex items-center justify-center">
+                        <FileIcon className="w-5 h-5 text-gray-500" />
+                    </div>
+                    <p className="mt-2 text-[#272727] text-base font-[Geologica] font-normal">
+                        {isUploading ? "File upload in progress..." : "Click to upload or Drag & drop"}
+                    </p>
+                    <p className="text-[#8D8D8D] text-xs font-[Geologica] font-normal">
+                        {uploadFile?.maxSize}
+                    </p>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".jpeg,.png,.webp"
+                        onChange={handleFileChange}
+                        className="hidden"
+                        disabled={submitted || isLoading || isUploading}
+                    />
                 </div>
 
-                {/* Progress Bar with Percentage */}
-                <div className="mt-2 flex items-center space-x-2">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-[#1354B6] h-2 rounded-full transition-all duration-100 ease-linear"
-                      style={{ width: `${uploadProgress[index] || 0}%` }}
-                    ></div>
-                  </div>
-                  <p className="text-[#3D3D3D] text-xs font-[Geologica] font-normal">
-                    {Math.round(uploadProgress[index] || 0)}%
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                {/* Uploaded File - now singular */}
+                {files.length > 0 && (
+                    <div className="mt-4 space-y-4">
+                        {files.map((file, index) => (
+                            <div
+                                key={index}
+                                className="relative p-4 rounded-md bg-black/5 flex flex-col"
+                            >
+                                {/* File Info */}
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-2">
+                                        <div className="bg-white px-2 py-1.5 rounded-sm border-2 border-[#CACACA]">
+                                            <FileIcon className="w-5 h-5 text-gray-500" />
+                                        </div>
+                                        <div>
+                                            <p className="text-[#383838] text-xs font-[Geologica] font-normal">
+                                                {file.name}
+                                            </p>
+                                            <p className="text-[#8A8A8A] text-xs font-[Geologica] font-normal">
+                                                {(file.size / (1024 * 1024)).toFixed(2)} MB
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => removeFile(index)}
+                                        className={`absolute top-2 right-2 text-black hover:text-[#1354B6] ${
+                                            submitted || isLoading ? "cursor-not-allowed opacity-50" : ""
+                                        }`}
+                                        disabled={submitted || isLoading}
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
 
-      {/* Buttons */}
-      <div className="flex space-x-4">
-        <button
-          type="button"
-          onClick={handleSkip}
-          className={`flex-1 py-2 bg-[#0036AB]/50 text-white rounded-full text-sm font-[ClashDisplay-Medium] ${
-            submitted ? "cursor-not-allowed opacity-50" : "hover:bg-[#1354B6]"
-          }`}
-          disabled={submitted}
-        >
-          Skip
-        </button>
-        <button
-          type="submit"
-          className={`flex-1 py-2 bg-[#0036AB] text-white rounded-full text-sm font-[ClashDisplay-Medium] ${
-            submitted ? "cursor-not-allowed opacity-50" : "hover:bg-[#1354B6]"
-          }`}
-          disabled={submitted}
-        >
-          Submit
-        </button>
-      </div>
-    </form>
-  );
+                                {/* Progress Bar with Percentage */}
+                                <div className="mt-2 flex items-center space-x-2">
+                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                        <div
+                                            className="bg-[#1354B6] h-2 rounded-full transition-all duration-100 ease-linear"
+                                            style={{ width: `${uploadProgress[index] || 0}%` }}
+                                        ></div>
+                                    </div>
+                                    <p className="text-[#3D3D3D] text-xs font-[Geologica] font-normal">
+                                        {Math.round(uploadProgress[index] || 0)}%
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* Buttons - also consider isUploading state */}
+            <div className="flex space-x-4">
+                {!question?.response && <>
+                    <button
+                        type="button"
+                        onClick={handleSkip}
+                        className={`cursor-pointer flex-1 py-2 bg-[#0036AB]/50 text-white rounded-full text-sm font-[ClashDisplay-Medium] ${
+                            submitted || isLoading || isUploading ? "cursor-not-allowed opacity-50" : "hover:bg-[#1354B6]"
+                        }`}
+                        disabled={submitted || isLoading || isUploading}
+                    >
+                        Skip
+                    </button>
+                </>}
+                
+                <button type="submit"
+                    className={`cursor-pointer flex-1 py-2 bg-[#0036AB] text-white rounded-full text-sm font-[ClashDisplay-Medium] ${
+                        submitted || isLoading || isUploading ? "cursor-not-allowed opacity-50" : "hover:bg-[#1354B6]"
+                    }`}
+                    disabled={submitted || isLoading || isUploading}
+                >
+                    {isLoading ? "Uploading..." : "Submit"}
+                </button>
+            </div>
+        </form>
+    );
 }

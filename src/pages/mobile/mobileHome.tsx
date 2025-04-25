@@ -4,21 +4,20 @@ import textData from "@/config/text.json";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Badge_Button } from "@/components/common/index";
-import Header from "@/components/mobile/mobileHeader";
 
 export default function MobileHome() {
   const { homepage } = textData;
   const { Badges } = textData;
   const [screen, setScreen] = useState("home");
 
-  const bgClass = [
-    "#5D9DFE",
-    "#468FFE",
-    "#2F7CF2",
-    "0D64E9",
-    "#1058C5",
-    "0B43BE",
-  ];
+  // const bgClass = [
+  //   "#5D9DFE",
+  //   "#468FFE",
+  //   "#2F7CF2",
+  //   "0D64E9",
+  //   "#1058C5",
+  //   "0B43BE",
+  // ];
 
   const screenVariants = {
     open: (height = 1000) => ({

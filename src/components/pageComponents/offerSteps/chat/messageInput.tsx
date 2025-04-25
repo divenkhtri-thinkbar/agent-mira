@@ -1,12 +1,14 @@
 import { SendHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { chat } from "@/config/text.json";
+
 
 function MessageInput({ onSend }: { onSend: (message: string) => void }) {
   return (
     <div className="border-t p-4 flex gap-2">
       <Input
-        placeholder="Have any questions you can ask us"
+        placeholder={chat.placeholder}
         className="flex-1"
         onKeyDown={(e) => {
           if (e.key === "Enter") {

@@ -26,7 +26,7 @@ interface PresentPropertyCardProps {
   onNext?: () => void;
 }
 
-export function   PresentPropertyCard({
+export function PresentPropertyCard({
   imageUrl,
   matchPercentage,
   price,

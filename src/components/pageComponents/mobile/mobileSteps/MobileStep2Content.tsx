@@ -4,15 +4,14 @@ import {
   ChatMessage,
   WinningOfferQuestion,
 } from "@/components/pageComponents/offerSteps";
-import {RightBox,NextStep} from "@/components/pageComponents/offerSteps/index";
+import {NextStep} from "@/components/pageComponents/offerSteps/index";
 import { MessageType } from "@/components/pageComponents/offerSteps/types/messageTypes";
 import PropertyFilterList from "@/components/pageComponents/offerSteps/property/propertyFilterList";
 import { house, agent } from "@/assets/images";
 import textData from "@/config/text.json";
-import MobileRightCard from "../MobileRightCard";
 import { PresentPropertyCard } from "@/components/pageComponents/offerSteps/property/step2/presentPropertyCard";
 import { X } from "lucide-react";
-import { CompareProperty } from "../../offerSteps/index";
+import RightBox from "../../offerSteps/property/rightBox";
 
 // Define types for textData (reused from Step2Content)
 interface Address {
@@ -94,32 +93,6 @@ export default function MobileStep2Content({
     })
   );
 
-
-  const Compareproperties = [
-    {
-      id: 0,
-      imageSrc: house,
-      address: "123, Palm Avenue",
-      percentageMatch: "84%",
-      backG:"bg-[#FFC251]"
-    },
-    {
-      id: 1,
-      imageSrc: house,
-      address: "456, Oak Street",
-      percentageMatch: "92%",
-      backG:"bg-[#FFEE51]"
-    },
-    {
-      id: 2,
-      imageSrc: house,
-      address: "789, Maple Drive",
-      percentageMatch: "78%",
-      backG:"bg-[#37D3AE]"
-    }
-  ];
-
-
   const comparableProperties = typedTextData.step2Content.data.comparableProperties.map(
     (prop) => ({
       ...prop,
@@ -184,9 +157,6 @@ export default function MobileStep2Content({
     }
   }, [messages]);
 
-  const handleCardClick = (index: number) => {
-    setSelectedCardIndex(selectedCardIndex === index ? null : index); // Toggle expansion
-  };
 
   return (
     <div className="h-full w-full p-4 flex flex-col relative">

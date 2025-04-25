@@ -21,6 +21,7 @@ export function MatchDetailCard({
 
   const renderText = () => {
     if (textStyle === "bullet") {
+      if(text?.length === 0 || text === null || text === undefined) return <p className={`font-[Geologica] font-light text-xs text-[#0036AB] ${textAlignClass}`}>No Data Found</p>
       return (
         <ul className={`font-[Geologica] font-light text-xs text-[#0036AB] list-disc ${textAlignClass} ${iconPlacement === "left" ? "pl-4" : "pl-0"}`}>
           {text.map((item, index) => (

@@ -20,9 +20,6 @@ export default function OfferProcess() {
   const [showPropertyCard, setShowPropertyCard] = useState(false);
   const [isPropertyLoading, setIsPropertyLoading] = useState(true);
   const [address, setAddress] = useState<string | undefined>(undefined);
-  const [qualityScoreNotchText, setQualityScoreNotchText] = useState<
-    string | null
-  >(null); // Renamed for clarity
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
   const [marketAnalysisOption, setMarketAnalysisOption] = useState<
     string | null
@@ -31,7 +28,7 @@ export default function OfferProcess() {
   const [step4Stage, setStep4Stage] = useState<
     | "initial"
     | "quality-score"
-    | "inside-scoop"
+    | "inside-scoop" 
     | "repairs"
     | "in-person"
     | "first-impression"
@@ -41,7 +38,7 @@ export default function OfferProcess() {
   const [step6Stage, setStep6Stage] = useState<
     "initial" | "review-offer" | "customize-offer" | "confirmation"
   >("initial");
-  const [_selectedMarketAnalysisText, _setSelectedMarketAnalysisText] = useState<
+  const [_selectedMarketAnalysisText, setSelectedMarketAnalysisText] = useState<
     string | null
   >(null); // New state for text
 
@@ -64,11 +61,6 @@ export default function OfferProcess() {
       setStep4Stage("initial");
       setStep6Stage("initial");
     }
-  };
-
-  const handleInsideScoop = (optionText: string) => {
-    console.log("handleInsideScoop called with:", optionText);
-    setQualityScoreNotchText(optionText);
   };
 
   const handleChatProgress = (
@@ -157,20 +149,11 @@ export default function OfferProcess() {
   const handleMarketAnalysisOptionSelect = (optionId: string) => {
     setMarketAnalysisOption(optionId);
   };
-  const getHeaderAddress = () => {
-    if (selectedCardId !== null) {
-      return address || "Selected Property Address";
-    } else if (address) {
-      return address;
-    }
-    return "New offer";
+  const handleInsideScoop = (optionText: string) => {
+    setSelectedMarketAnalysisText(optionText); // Store selected text
   };
   return (
-    <Layout
-      address={address}
-      selectedCardId={selectedCardId}
-      handleCardSelect={handleCardSelect}
-    >
+    <Layout>
       <main className="h-screen w-full flex flex-col overflow-hidden">
         <ProgressNav currentStep={currentStep} steps={steps} />
         <div className="flex-1 overflow-hidden">
@@ -188,8 +171,6 @@ export default function OfferProcess() {
                   onMarketAnalysisOptionSelect={
                     handleMarketAnalysisOptionSelect
                   }
-                  headerAddress={getHeaderAddress()}
-                  handleInsideScoop={handleInsideScoop}
                 />
               </div>
             }
@@ -206,7 +187,6 @@ export default function OfferProcess() {
                   step4Stage={step4Stage}
                   step6Stage={step6Stage}
                   handleInsideScoop={handleInsideScoop}
-                  selectedMarketAnalysisText={qualityScoreNotchText} // Pass the selected text
                 />
               </div>
             }

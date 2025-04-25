@@ -1,16 +1,42 @@
-// src/components/Home.tsx
 import { ArrowRight } from "lucide-react";
 import Layout from "../layouts/OfferLayout";
 import { logo, agent } from "@/assets/images";
 import textData from "@/config/text.json";
-import { useRef, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import {
+  clearPropertyData,
+  clearPropertyFeatures,
+} from "@/slices/propertySlice";
+import { clearCmaList, clearOfferInfo } from "@/slices/preferenceSlice";
+import { clearAllQnaQuestions } from "@/slices/qnaSlice";
+import { clearAllMessages } from "@/slices/chatSlice";
+import { getPropertyHome } from "@/services/apiService";
 interface HomeProps {
   onButtonRef?: (element: HTMLAnchorElement | null) => void;
 }
 
 export default function Home({ onButtonRef }: HomeProps) {
   const { homepage } = textData;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Clear property data when component mounts
+    dispatch(clearAllQnaQuestions());
+    dispatch(clearPropertyData());
+    dispatch(clearCmaList());
+    dispatch(clearAllMessages());
+    dispatch(clearPropertyFeatures());
+    dispatch(clearOfferInfo());
+
+    // Make API call once on mount
+    getPropertyHome().catch((error) =>
+      console.error("Error fetching property home data:", error)
+    );
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   const buttonRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
@@ -61,16 +87,16 @@ export default function Home({ onButtonRef }: HomeProps) {
             <img
               src={agent}
               alt="Professional"
-              className="h-auto w-full max-w-[80%] md:max-w-[40%] md:min-w-[30%] md:h-auto lg:h-auto xl:h-auto object-contain mt-8 xl:-mb-10 md:mt-0 xl:mt-0 xl:self-end relative z-0"
+              className="h-auto w-full max-w-[80%] md:max-w-[40%] md:min-w-[30%] md:h-[400px] lg:h-[500px] xl:h-[600px] object-contain mt-8 xl:-mb-10 md:mt-0 xl:mt-0 xl:self-end relative z-0"
             />
           </div>
 
           {/* Button and Description Section */}
-          <div className="w-full max-w-7xl flex flex-col items-center mt-[-20px] xl:mt-0 z-10">
+          <div className="w-full max-w-7xl flex flex-col items-center mt-[-20px] xl:mt-0 relative z-0">
             <a
               ref={buttonRef}
-              href="/offer-process"
-              className="group flex w-full h-14 sm:h-16 xl:h-17 2xl:h-20"
+              onClick={() => navigate("/agent")}
+              className="cursor-pointer group flex w-full h-14 sm:h-16 md:h-18 lg:h-20"
             >
               <div className="flex-1 bg-[#4ADAA8] text-[#1E4DB7] font-[ClashDisplay-Medium] text-lg sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] 2xl:text-[38px] leading-tight text-center flex items-center justify-center rounded-full">
                 {homepage.buttonText}

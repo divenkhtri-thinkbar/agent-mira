@@ -1,3 +1,4 @@
+// AddressInput.tsx
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import textData from "@/config/text.json";
@@ -54,18 +55,18 @@ export function AddressInput({ onSubmit }: AddressInputProps) {
   };
 
   return (
-    <div className="space-y-0 sm:w-full w-[300px]">
+    <div className="space-y-0 w-full">
       <div className="agentChat py-2 pl-2 pr-6 text-nowrap">
         Enter the address of the property here...
       </div>
       {isSubmitted ? (
         <div className="flex items-center gap-0">
-          <div className="bg-white/80 rounded-full p-3 px-4 text-[#272727] w-full">
+          <div className="bg-white/80 rounded-full p-3 px-4 max-w-[70%] text-[#272727] w-full">
             {address}
           </div>
         </div>
       ) : (
-        <div className="bg-[#F7F7F7] rounded-xl ">
+        <div className="bg-[#F7F7F7] rounded-xl">
           <Input
             value={address}
             onChange={handleInputChange}
@@ -74,7 +75,7 @@ export function AddressInput({ onSubmit }: AddressInputProps) {
             onKeyDown={handleKeyDown}
           />
           {showSuggestions && address && (
-            <div className="overflow-hidden">
+            <div className="overflow-hidden w-full">
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}

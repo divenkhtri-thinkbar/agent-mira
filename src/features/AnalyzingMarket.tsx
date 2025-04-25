@@ -23,6 +23,7 @@ export default function Step3Content({
   onMarketAnalysisOptionSelect 
 }: Step3ContentProps) {
   const messageIdCounter = useRef(0);
+  const [selectedMarketInsightsId, setSelectedMarketInsightsId] = useState<string | null>(null);
   const [selectedMarketAnalysisId, setSelectedMarketAnalysisId] = useState<string | null>(null);
   const [hasAddedNextStep, setHasAddedNextStep] = useState<boolean>(false);
   const optionRefs = useRef<React.RefObject<HTMLDivElement | null>[]>([]);
@@ -52,7 +53,7 @@ export default function Step3Content({
         setTimeout(() => {
           addMessage({
             id: generateUniqueId(),
-            type: "market-analysis",
+            type: "market-insights",
             content: "",
             showAvatar: false,
           });
@@ -75,6 +76,34 @@ export default function Step3Content({
               />
             );
 
+          case "market-insights":
+            return (
+              <ChatMessage
+                key={message.id}
+                message={{
+                  ...message,
+                  avatarUrl: agentAvatarUrl,
+                  isSelected: !!selectedMarketInsightsId,
+                  content: (
+                    <WinningOfferQuestion
+                      condition="market-insights"
+                      avatarUrl={agentAvatarUrl}
+                      onOptionSelect={(option) => {
+                        setSelectedMarketInsightsId(option.id);
+                        setTimeout(() => {
+                          addMessage({
+                            id: generateUniqueId(),
+                            type: "market-analysis",
+                            content: "",
+                            showAvatar: false,
+                          });
+                        }, 1500);
+                      }}
+                    />
+                  ),
+                }}
+              />
+            );
 
           case "market-analysis":
             if (optionRefs.current.length === 0) {

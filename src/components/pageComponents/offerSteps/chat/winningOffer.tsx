@@ -257,7 +257,7 @@ export function WinningOfferQuestion({
         options={optionsMessage.options!}
         onSelect={onOptionSelect}
         variant={
-          condition === "market-analysis" || condition === "inside-scoop"
+          condition === "market-analysis"
             ? "data-switch"
             : condition === "know-about-quality-score" || condition === "repairs-needed"
             ? "know-about-quality-score"

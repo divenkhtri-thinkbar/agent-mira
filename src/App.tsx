@@ -1,46 +1,20 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
+import React from 'react';
+import { LoaderProvider } from '@/services/LoaderContext';
+import Loader from '@/components/loaders/Loader';
 import ResponsiveRoutes from "./layouts/ResponsiveLayout";
+// In your main App component or index file
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
-  useEffect(() => {
-    const cursor = document.createElement("div");
-    cursor.classList.add("circular-cursor");
-    document.body.appendChild(cursor);
-
-    const moveCursor = (e: MouseEvent) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-
-    return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      document.body.removeChild(cursor);
-    };
-  }, []);
-
-  const handleButtonRef = (button: HTMLAnchorElement | null) => {
-    if (!button) return;
-
-    const handleMouseEnter = () => {
-      document.querySelector(".circular-cursor")?.classList.add("cursor-hover");
-    };
-
-    const handleMouseLeave = () => {
-      document.querySelector(".circular-cursor")?.classList.remove("cursor-hover");
-    };
-
-    button.addEventListener("mouseenter", handleMouseEnter);
-    button.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      button.removeEventListener("mouseenter", handleMouseEnter);
-      button.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  };
-
-  return <ResponsiveRoutes onButtonRef={handleButtonRef} />;
-}
+const App: React.FC = () => {
+  return (
+    <LoaderProvider>
+      <Loader />
+      <ToastContainer /> 
+      <ResponsiveRoutes />
+    </LoaderProvider>
+  );
+};
 
 export default App;

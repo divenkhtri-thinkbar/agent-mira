@@ -51,13 +51,11 @@ const MessageContainer = ({
   showAvatar,
   isSelected,
   variant,
-  alignRight,
 }: {
   children: React.ReactNode;
   showAvatar?: boolean;
   isSelected?: boolean;
   variant?: string;
-  alignRight?: boolean;
 }) => (
   <div
     className={cn(
@@ -66,15 +64,8 @@ const MessageContainer = ({
         ? "bg-[#B8D4FF]"
         : isSelected
         ? "bg-[#B8D4FF]"
-        : alignRight
-        ? "bg-transparent" // Transparent background for right-aligned messages
         : "bg-[#ECECEC]",
-      showAvatar
-        ? "rounded-tl-none"
-        : alignRight
-        ? "ml-auto rounded-tr-none"
-        : "ml-12",
-      alignRight ? "text-right" : "text-left"
+      showAvatar ? "rounded-tl-none" : "ml-12"
     )}
   >
     {children}
@@ -161,18 +152,6 @@ function ChatMessage({ message }: ChatMessageProps) {
               </div>
             </div>
           )}
-        </div>
-      </div>
-    );
-  }
-
-  if (message.type === "right-card") {
-    return (
-      <div className="flex items-start gap-0 justify-end w-full max-w-3xl mx-auto">
-        <div className="flex items-start relative w-full justify-end">
-          <MessageContainer alignRight={true}>
-            {message.content}
-          </MessageContainer>
         </div>
       </div>
     );

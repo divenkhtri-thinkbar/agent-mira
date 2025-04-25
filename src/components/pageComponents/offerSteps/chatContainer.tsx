@@ -36,8 +36,6 @@ interface ChatContainerProps {
   selectedCardId: number | null;
   handleCardSelect: (id: number) => void;
   onMarketAnalysisOptionSelect?: (optionId: string) => void;
-  headerAddress: string;
-  handleInsideScoop?: (optionText: string) => void;
 }
 
 function ChatContainer({
@@ -49,8 +47,6 @@ function ChatContainer({
   selectedCardId,
   handleCardSelect,
   onMarketAnalysisOptionSelect,
-  headerAddress,
-  handleInsideScoop
 }: ChatContainerProps) {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const agentAvatarUrl = agent;
@@ -108,18 +104,16 @@ function ChatContainer({
             onMarketAnalysisOptionSelect={onMarketAnalysisOptionSelect} // Pass callback
           />
         );
-        case 4:
-          return (
-            <Step4Content
-              messages={messages}
-              addMessage={addMessage}
-              agentAvatarUrl={agentAvatarUrl}
-              onNextStep={onNextStep}
-              onChatProgress={onChatProgress}
-              onMarketAnalysisOptionSelect={onMarketAnalysisOptionSelect} 
-              handleInsideScoop={handleInsideScoop}
-            />
-          );
+      case 4:
+        return (
+          <Step4Content
+            messages={messages}
+            addMessage={addMessage}
+            agentAvatarUrl={agentAvatarUrl}
+            onNextStep={onNextStep}
+            onChatProgress={onChatProgress} // Pass the prop
+          />
+        );
       case 5:
         return (
           <Step5Content
@@ -145,13 +139,12 @@ function ChatContainer({
   };
 
   const handleSendMessage = (message: string) => {
-    console.log("User query message sent:", message);
   };
 
   return (
     <div className="flex flex-col h-[100%] w-full mx-auto bg-white relative">
       {/* Chat Header */}
-      <ChatHeader headerAddress={headerAddress} />
+      <ChatHeader />
 
       {/* Scrollable Chat Content */}
       <ScrollArea className="flex-1 p-4 px-10 overflow-auto" ref={scrollRef}>
@@ -161,7 +154,7 @@ function ChatContainer({
       {/* Fixed UserQueryMessage at the Bottom (constrained to ChatContainer width) */}
       <div className="sticky bottom-0 left-0 w-full bg-white border-t border-gray-200">
         <div className="mx-auto w-full">
-          <UserQueryMessage onSendMessage={handleSendMessage} />
+          {/* <UserQueryMessage onSendMessage={handleSendMessage} /> */}
         </div>
       </div>
     </div>

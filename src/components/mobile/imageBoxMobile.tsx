@@ -1,6 +1,13 @@
 import React from 'react'
 
-const imageBoxMobile = ({src,title}) => {
+
+interface ImageBoxMobileProps {
+  src?: string;
+  title?: string;
+}
+
+
+const imageBoxMobile = ({src,title}: ImageBoxMobileProps) => {
   return (
     <div className={`bg-white p-4 rounded-[20px] mb-4 mt-[60px]`}>
       <img src={src} alt="" className={`w-full`}/>

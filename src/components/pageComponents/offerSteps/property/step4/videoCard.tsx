@@ -1,19 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { useState } from "react";
+import textData from "@/config/text.json";
 
 interface VideoSliderProps {
   videos: string[];
   initialIndex?: number;
-  title?: string;
 }
 
-export function VideoCard({
-  videos,
-  title,
-  initialIndex = 0,
-}: VideoSliderProps) {
+export function VideoCard({ videos, initialIndex = 0 }: VideoSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const videoCardText = textData.step4Content.videoCard;
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
@@ -26,7 +23,7 @@ export function VideoCard({
   return (
     <div className="flex flex-col px-14 py-4 w-full h-full items-center justify-center">
       <h1 className="font-[ClashDisplay-Medium] text-xl leading-9 textColor mb-4 text-center">
-        {title}
+        {videoCardText.title}
       </h1>
 
       {/* Video Container */}

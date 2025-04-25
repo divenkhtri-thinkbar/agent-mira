@@ -1,11 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { agent } from "@/assets/images";
 import { useState } from "react";
-import textData from "@/config/text.json";
-import {
-  MarketGauge,
-  MarketType,
-} from "@/components/pageComponents/offerSteps/property/step3/marketGauge";
 import Speedometer from "../offerSteps/property/step3/Speedometer";
 import Tabs from "../offerSteps/property/step3/Tabs";
 
@@ -22,15 +16,9 @@ interface DropdownMobileRightCardProps {
 const DropdownMobileRightCard: React.FC<DropdownMobileRightCardProps> = ({
   onToggle,
   isExpanded,
-  imageSrc = agent,
-  topText,
-  boldText,
-  subtitle,
   label,
 }) => {
-  const marketGaugeData = textData.step3Content.marketGauge.data;
   const [activeTab, setActiveTab] = useState<"home" | "neighbourhood" | "city">("home");
-  const [selectedMarketAnalysisId, setSelectedMarketAnalysisId] = useState<string | null>(null);
 
   return (
     <div className="flex items-center justify-end z-50 pb-2">

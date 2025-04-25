@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ChevronRight, ChevronDown } from "lucide-react";
 import textData from "@/config/text.json";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/index";
-import placeholder  from "../../assets/images/placeholder.png";
+import placeholder  from "../../assets/images/placeholder-old.png";
 import UserProject from "../../assets/images/userProject.png"
 
 

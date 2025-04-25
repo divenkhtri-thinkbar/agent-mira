@@ -1,7 +1,11 @@
 import { cn } from "@/lib/utils"
+interface BadgeButtonProps {
+  id?: number | string;
+  label?: string;
+  bgColor?: string;
+}
 
-
-const BadgeButton = ({id,label,bgColor}) => {
+const BadgeButton = ({id,label,bgColor}:BadgeButtonProps) => {
     return (
       <div className={cn("py-4 px-6 rounded-full mb-1",bgColor)}>
         <div className="flex justify-between font-[Geologica] text-[12px] text-white items-center">

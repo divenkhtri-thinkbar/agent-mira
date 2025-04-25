@@ -3,7 +3,7 @@ import {
   AddressInput,
   ChatMessage,
   NextStep,
-  // PropertyForm,
+  PropertyForm,
   WinningOfferQuestion,
 } from "@/components/pageComponents/offerSteps";
 import { MessageType } from "@/components/pageComponents/offerSteps/types/messageTypes";
@@ -36,7 +36,7 @@ export default function Step1Content({
   const messageIdCounter = useRef(0);
   const [selectedWinningOptionId, setSelectedWinningOptionId] = useState<string | null>(null);
   const [selectedOptionsId, setSelectedOptionsId] = useState<string | null>(null);
-  // const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
 
   const generateUniqueId = () => {
     messageIdCounter.current += 1;
@@ -193,7 +193,7 @@ export default function Step1Content({
                         setTimeout(() => {
                           addMessage({
                             id: generateUniqueId(),
-                            type: "confirmation",
+                            type: "form",
                             content: "",
                             showAvatar: false,
                           });
@@ -204,30 +204,30 @@ export default function Step1Content({
                 }}
               />
             );
-          // case "form":
-          //   return (
-          //     <ChatMessage
-          //       key={message.id}
-          //       message={{
-          //         ...message,
-          //         avatarUrl: agentAvatarUrl,
-          //         isSelected: isFormSubmitted,
-          //         content: (
-          //           <PropertyForm
-          //             key={message.id}
-          //             onSubmit={() => {
-          //               setIsFormSubmitted(true);
-          //               addMessage({
-          //                 id: generateUniqueId(),
-          //                 type: "confirmation",
-          //                 content: "",
-          //               });
-          //             }}
-          //           />
-          //         ),
-          //       }}
-          //     />
-          //   );
+          case "form":
+            return (
+              <ChatMessage
+                key={message.id}
+                message={{
+                  ...message,
+                  avatarUrl: agentAvatarUrl,
+                  isSelected: isFormSubmitted,
+                  content: (
+                    <PropertyForm
+                      key={message.id}
+                      onSubmit={() => {
+                        setIsFormSubmitted(true);
+                        addMessage({
+                          id: generateUniqueId(),
+                          type: "confirmation",
+                          content: "",
+                        });
+                      }}
+                    />
+                  ),
+                }}
+              />
+            );
           case "confirmation":
             return (
               <ChatMessage

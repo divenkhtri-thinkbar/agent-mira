@@ -63,7 +63,7 @@ export default function RightPanelContainer({
   isPropertyLoading,
   address,
   marketAnalysisOption,
-  showVideoCard = false,
+  showVideoCard = false, // Default to false
   step4Stage = "initial",
   step6Stage = "initial",
   selectedMarketAnalysisText = null,
@@ -292,10 +292,10 @@ export default function RightPanelContainer({
                   "animate-slide-in-from-left"
               )}
             >
-             <QualityScoreCard 
-            initialIndex={0}
-            notchText={selectedMarketAnalysisText || "Exterior"} // Use the selected text or default to "Exterior"
-          />
+              <QualityScoreCard
+                notchText={selectedMarketAnalysisText ?? "Exterior"}
+                images={images}
+              />
             </div>
           )}
           {step4Stage === "in-person" && (
@@ -364,7 +364,7 @@ export default function RightPanelContainer({
                   "animate-slide-in-from-left"
               )}
             >
-              <FinalOfferStaggerCardSkeleton />
+              <FinalOfferStaggerCardSkeleton isLoading={isPropertyLoading} />
             </div>
           )}
           {step6Stage === "review-offer" && (
@@ -376,7 +376,7 @@ export default function RightPanelContainer({
                   "animate-slide-in-from-left"
               )}
             >
-              <FinalOfferStaggerCard {...offerData} />
+              {/* <FinalOfferStaggerCard {...offerData} /> */}
             </div>
           )}
           {step6Stage === "customize-offer" && (

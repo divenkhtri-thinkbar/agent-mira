@@ -7,9 +7,6 @@ import {
   TrendingUp,
   Scale,
   PieChart,
-  Award,
-  Minimize2,
-  DollarSign
 } from "lucide-react";
 import { useState } from "react";
 
@@ -35,9 +32,6 @@ const iconMap = {
   x: Shield,
   meh: Search,
   "trending-up": TrendingUp,
-  "dollar-sign": DollarSign,
-  "minimize-2": Minimize2,
-  "award": Award,
   scale: Scale,
   "pie-chart": PieChart,
 };

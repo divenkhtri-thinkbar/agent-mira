@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Tabs from "./Tabs";
 import Speedometer from "./Speedometer";
@@ -21,8 +20,6 @@ interface MarketGaugeProps {
   daysVsLast: number;
   selectedMarketAnalysisOption?: string | null;
   isLoading?: boolean;
-  label:string;
-  variant:string;
 }
 
 export function MarketGauge({
@@ -40,13 +37,13 @@ export function MarketGauge({
   selectedMarketAnalysisOption,
   isLoading = false,
 }: MarketGaugeProps) {
-  const [activeTab, setActiveTab] = useState<"home" | "neighbourhood" | "city">("home");
+  const [activeTab, setActiveTab] = useState<"home" | "city" | "county">("county");
   const [marketType, setMarketType] = useState<MarketType>(initialMarketType);
 
   useEffect(() => {
     const tabToMarketType: Record<typeof activeTab, MarketType> = {
-      home: "seller",
-      neighbourhood: "balanced",
+      county: "seller",
+      home: "balanced",
       city: "buyer",
     };
     setMarketType(tabToMarketType[activeTab]);
@@ -61,7 +58,7 @@ export function MarketGauge({
         <SkeletonMarketGauge selectedMarketAnalysisOption={selectedMarketAnalysisOption} />
       ) : (
         <div className="overflow-hidden">
-          <Tabs activeTab={activeTab} setActiveTab={setActiveTab} variant={"desktop"} />
+          <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
           <Speedometer marketType={marketType} selectedMarketAnalysisOption={selectedMarketAnalysisOption} />
           <StatsSection
             selectedMarketAnalysisOption={selectedMarketAnalysisOption}

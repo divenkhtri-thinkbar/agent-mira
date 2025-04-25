@@ -2,17 +2,23 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { CircleCheckBig } from "lucide-react";
+import { Label } from "../common/Label";
 import textData from "@/config/text.json";
 
 interface ImageSliderProps {
   images: string[];
   initialIndex?: number;
-  variant?: "fixed" | "repairs";
+  variant?: 'fixed' | 'repairs';
 }
 
-export function ImageCard({ images, initialIndex = 0 }: ImageSliderProps) {
+export function ImageCard({ 
+  images, 
+  initialIndex = 0, 
+  variant = 'fixed'
+}: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const imageCardText = textData.step4Content.imageCard;
+  const labels = imageCardText.labels;
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -22,7 +28,7 @@ export function ImageCard({ images, initialIndex = 0 }: ImageSliderProps) {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  // const labelVariant = variant === 'repairs' ? 'repairsDone' : 'normal';
+  const labelVariant = variant === 'repairs' ? 'repairsDone' : 'normal';
 
   return (
     <div className="flex flex-col px-14 py-4 w-full h-full items-center justify-center">
@@ -42,32 +48,32 @@ export function ImageCard({ images, initialIndex = 0 }: ImageSliderProps) {
 
       {/* Image Container */}
       <div className="max-w-5xl w-full mx-auto overflow-hidden rounded-[32px] relative">
-        <div className="relative  w-full">
+        <div className="relative h-[560px] w-full">
           {/* Current Image */}
           <div className="h-full w-full p-3">
             <img
               src={images[currentIndex] || "/placeholder.svg"}
               alt={`Property image ${currentIndex + 1}`}
-              className="h-full w-full object-contain rounded-3xl transition-all duration-300 ease-in-out"
+              className="h-full w-full object-cover rounded-3xl transition-all duration-300 ease-in-out"
             />
           </div>
 
           {/* Label 1: Top 50 Left 20 */}
-          {/* <Label
+          <Label
             text={labels.fence}
             variant={labelVariant}
             className="absolute top-[49%] left-[7%]"
-          /> */}
+          />
 
           {/* Label 2: Bottom 40 Left 30 */}
-          {/* <Label
+          <Label
             text={labels.patio}
             variant={labelVariant}
             className="absolute bottom-[35%] left-[30%]"
-          /> */}
+          />
         </div>
       </div>
-
+      
       {/* Navigation Arrows */}
       <div className="flex justify-center gap-4 ">
         <Button

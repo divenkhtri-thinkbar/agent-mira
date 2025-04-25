@@ -27,8 +27,7 @@ export default function Step5Content({
   const [_selectedFeatures, setSelectedFeatures] = useState<
     Array<{ id: string; text: string }>
   >([]);
-  const [isFeaturesSubmitted, setIsFeaturesSubmitted] =
-    useState<boolean>(false);
+  const [isFeaturesSubmitted, setIsFeaturesSubmitted] = useState<boolean>(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
 
   const generateUniqueId = () => {
@@ -96,19 +95,24 @@ export default function Step5Content({
                             addMessage({
                               id: generateUniqueId(),
                               type: "agent",
-                              content:
-                                textData.step5Content.agentMessages
-                                  .featuresSkippedResponse,
+                              content: textData.step5Content.agentMessages.featuresSkippedResponse,
                               showAvatar: true,
                             });
-
                             setTimeout(() => {
                               addMessage({
                                 id: generateUniqueId(),
-                                type: "form",
-                                content: "",
-                                showAvatar: false,
+                                type: "agent",
+                                content: textData.step5Content.agentMessages.formPrompt,
+                                showAvatar: true,
                               });
+                              setTimeout(() => {
+                                addMessage({
+                                  id: generateUniqueId(),
+                                  type: "form",
+                                  content: "",
+                                  showAvatar: false,
+                                });
+                              }, 1500);
                             }, 1500);
                           }, 1500);
                         }}
@@ -118,12 +122,16 @@ export default function Step5Content({
                             addMessage({
                               id: generateUniqueId(),
                               type: "agent",
-                              content:
-                                textData.step5Content.agentMessages
-                                  .featuresSubmittedResponse,
+                              content: textData.step5Content.agentMessages.featuresSubmittedResponse,
                               showAvatar: true,
                             });
                             setTimeout(() => {
+                              addMessage({
+                                id: generateUniqueId(),
+                                type: "agent",
+                                content: textData.step5Content.agentMessages.formPrompt,
+                                showAvatar: true,
+                              });
                               setTimeout(() => {
                                 addMessage({
                                   id: generateUniqueId(),
@@ -154,7 +162,6 @@ export default function Step5Content({
                   content: (
                     <DreamHomeForm
                       key={message.id}
-                      text="Now you can type, upload images to describe your dream home."
                       onSubmit={() => {
                         setIsFormSubmitted(true);
                         onChatProgress?.("form-submitted");
@@ -162,8 +169,7 @@ export default function Step5Content({
                           addMessage({
                             id: generateUniqueId(),
                             type: "agent",
-                            content:
-                              textData.step5Content.agentMessages.formResponse,
+                            content: textData.step5Content.agentMessages.formResponse,
                             showAvatar: true,
                           });
                           setTimeout(() => {
@@ -191,9 +197,7 @@ export default function Step5Content({
                   avatarUrl: agentAvatarUrl,
                   content: (
                     <NextStep
-                      content={
-                        textData.step5Content.agentMessages.confirmationMessage
-                      }
+                      content={textData.step5Content.agentMessages.confirmationMessage}
                       onNextStep={onNextStep}
                     />
                   ),

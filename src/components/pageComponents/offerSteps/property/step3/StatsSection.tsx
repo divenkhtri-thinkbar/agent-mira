@@ -22,13 +22,7 @@ interface StatItemProps {
   isPlaceholder?: boolean;
 }
 
-const StatItem = ({
-  icon,
-  label,
-  value,
-  subStats,
-  isPlaceholder = false,
-}: StatItemProps) => (
+const StatItem = ({ icon, label, value, subStats, isPlaceholder = false }: StatItemProps) => (
   <div
     className={`flex items-end justify-between relative h-18 xl:h-22 2xl:h-18 border-4 border-t-0 border-[#B8D4FF] ${
       isPlaceholder ? "bg-black/5" : ""
@@ -40,20 +34,14 @@ const StatItem = ({
           {icon}
         </div>
       </div>
-      <span className="lg:pt-20 font-[ClashDisplay-Medium] text-base lg:text-xs xl:text-sm textColor ml-2 py-1">
-        {label}
-      </span>
+      <span className="lg:pt-20 font-[ClashDisplay-Medium] text-base lg:text-xs xl:text-sm textColor ml-2 py-1">{label}</span>
     </div>
     <div className="text-right px-2 mb-2">
       <div className="text-xl font-semibold text-blue-900">{value}</div>
       {subStats && (
         <div
           className={`text-xs text-right ${
-            label ===
-            textData.step3Content.marketGauge.stats.supplyAvailability
-              .monthsOfInventory
-              ? "flex flex-col items-end"
-              : "flex items-center gap-2"
+            label === textData.step3Content.marketGauge.stats.supplyAvailability.monthsOfInventory ? "flex flex-col items-end" : "flex items-center gap-2"
           }`}
         >
           {subStats.map((stat, idx) => (
@@ -74,12 +62,10 @@ export default function StatsSection({
   priceMoM,
   saleToListRatio,
   belowAsking,
-
   priceReduced,
   lastMonthChange,
   medianDays,
   daysYoY,
-
   daysVsLast,
 }: StatsSectionProps) {
   const statsText = textData.step3Content.marketGauge.stats;
@@ -101,23 +87,13 @@ export default function StatsSection({
             icon: "%",
             label: statsText.priceTrends.saleToListRatio,
             value: `${saleToListRatio}%`,
-            subStats: [
-              {
-                text: `${belowAsking}${statsText.priceTrends.belowAskingOnAvg}`,
-                color: "text-green-500",
-              },
-            ],
+            subStats: [{ text: `${belowAsking}${statsText.priceTrends.belowAskingOnAvg}`, color: "text-green-500" }],
           },
           {
             icon: "↓",
             label: statsText.priceTrends.priceReducedListings,
             value: `${priceReduced}%`,
-            subStats: [
-              {
-                text: `+${lastMonthChange}${statsText.priceTrends.fromLastMonth}`,
-                color: "text-red-500",
-              },
-            ],
+            subStats: [{ text: `+${lastMonthChange}${statsText.priceTrends.fromLastMonth}`, color: "text-red-500" }],
           },
           {
             icon: "⊙",
@@ -125,10 +101,7 @@ export default function StatsSection({
             value: `${medianDays} ${statsText.priceTrends.days}`,
             subStats: [
               { text: `${daysYoY}% YoY`, color: "text-red-500" },
-              {
-                text: `${daysVsLast} ${statsText.priceTrends.days} VsLast`,
-                color: "text-green-500",
-              },
+              { text: `${daysVsLast} ${statsText.priceTrends.days} VsLast`, color: "text-green-500" },
             ],
           },
           {
@@ -152,26 +125,15 @@ export default function StatsSection({
             icon: "%",
             label: statsText.supplyAvailability.absorptionRate,
             value: "14%",
-            subStats: [
-              {
-                text: statsText.supplyAvailability.monthly,
-                color: "text-[#797979]",
-              },
-            ],
+            subStats: [{ text: statsText.supplyAvailability.monthly, color: "text-[#797979]" }],
           },
           {
             icon: "📅",
             label: statsText.supplyAvailability.monthsOfInventory,
             value: "6",
             subStats: [
-              {
-                text: `${statsText.supplyAvailability.lastMonth}: 2.4`,
-                color: "text-[#797979]",
-              },
-              {
-                text: `${statsText.supplyAvailability.twoMonthsAgo}: 2.8`,
-                color: "text-[#797979]",
-              },
+              { text: `${statsText.supplyAvailability.lastMonth}: 2.4`, color: "text-[#797979]" },
+              { text: `${statsText.supplyAvailability.twoMonthsAgo}: 2.8`, color: "text-[#797979]" },
             ],
           },
         ];
@@ -185,44 +147,26 @@ export default function StatsSection({
             subStats: [
               { text: "1% YoY", color: "text-[#3FE972]" },
               { text: "3% MoM", color: "text-[#3FE972]" },
-              {
-                text: statsText.demandCompetition.ofAllSales,
-                color: "text-[#797979]",
-              },
+              { text: statsText.demandCompetition.ofAllSales, color: "text-[#797979]" },
             ],
           },
           {
             icon: "↕",
             label: statsText.demandCompetition.priceChanges,
             value: "24%",
-            subStats: [
-              {
-                text: `${statsText.demandCompetition.timeToDrop}: 21d`,
-                color: "text-[#1354B6]",
-              },
-            ],
+            subStats: [{ text: `${statsText.demandCompetition.timeToDrop}: 21d`, color: "text-[#1354B6]" }],
           },
           {
             icon: "⚡",
             label: statsText.demandCompetition.marketActivity,
             value: "8%",
-            subStats: [
-              {
-                text: `${statsText.demandCompetition.newListings} +15%`,
-                color: "text-[#1354B6]",
-              },
-            ],
+            subStats: [{ text: `${statsText.demandCompetition.newListings} +15%`, color: "text-[#1354B6]" }],
           },
           {
             icon: "⏱",
             label: statsText.demandCompetition.timing,
             value: "45%",
-            subStats: [
-              {
-                text: `${statsText.demandCompetition.avgTimeToClose}: 35d`,
-                color: "text-[#1354B6]",
-              },
-            ],
+            subStats: [{ text: `${statsText.demandCompetition.avgTimeToClose}: 35d`, color: "text-[#1354B6]" }],
           },
         ];
 
@@ -241,23 +185,13 @@ export default function StatsSection({
             icon: "%",
             label: statsText.priceTrends.saleToListRatio,
             value: `${saleToListRatio}%`,
-            subStats: [
-              {
-                text: `${belowAsking}${statsText.priceTrends.belowAskingOnAvg}`,
-                color: "text-green-500",
-              },
-            ],
+            subStats: [{ text: `${belowAsking}${statsText.priceTrends.belowAskingOnAvg}`, color: "text-green-500" }],
           },
           {
             icon: "↓",
             label: statsText.priceTrends.priceReducedListings,
             value: `${priceReduced}%`,
-            subStats: [
-              {
-                text: `+${lastMonthChange}${statsText.priceTrends.fromLastMonth}`,
-                color: "text-red-500",
-              },
-            ],
+            subStats: [{ text: `+${lastMonthChange}${statsText.priceTrends.fromLastMonth}`, color: "text-red-500" }],
           },
           {
             icon: "⊙",
@@ -265,10 +199,7 @@ export default function StatsSection({
             value: `${medianDays} ${statsText.priceTrends.days}`,
             subStats: [
               { text: `${daysYoY}% YoY`, color: "text-red-500" },
-              {
-                text: `${daysVsLast} ${statsText.priceTrends.days} VsLast`,
-                color: "text-green-500",
-              },
+              { text: `${daysVsLast} ${statsText.priceTrends.days} VsLast`, color: "text-green-500" },
             ],
           },
           {

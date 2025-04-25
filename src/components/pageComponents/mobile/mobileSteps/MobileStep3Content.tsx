@@ -6,14 +6,12 @@ import {
 import NextStep from "@/components/pageComponents/offerSteps/nextStep";
 import { MessageType } from "@/components/pageComponents/offerSteps/types/messageTypes";
 import textData from "@/config/text.json";
-import MobileRightCard from "../MobileRightCard";
 import {
   MarketGauge,
   MarketType,
 } from "@/components/pageComponents/offerSteps/property/step3/marketGauge";
 import { X } from "lucide-react";
 import { agent } from "@/assets/images";
-import DropdownMobileRightCard from "../DropdownMobileRightCard";
 import AccordionContainer from "../accordianContainer";
 
 interface MobileStep3ContentProps {
@@ -35,13 +33,13 @@ export default function MobileStep3Content({
   const agentAvatarUrl = agent;
 
   const marketGaugeData = textData.step3Content.marketGauge.data;
-  const labels = {
-    options: [
-        "Show Price Trends",
-        "Show Supply and Demand",
-        "Show Market Type"
-    ]
-};
+//   const labels = {
+//     options: [
+//         "Show Price Trends",
+//         "Show Supply and Demand",
+//         "Show Market Type"
+//     ]
+// };
 
   const generateUniqueId = () => {
     messageIdCounter.current += 1;
@@ -89,10 +87,6 @@ export default function MobileStep3Content({
       }, 1500);
     }
   }, [messages]);
-
-  const handleCardClick = () => {
-    setIsPanelOpen(!isPanelOpen); // Toggle panel visibility
-  };
 
   return (
     <div className="h-full w-full p-4 flex flex-col relative">

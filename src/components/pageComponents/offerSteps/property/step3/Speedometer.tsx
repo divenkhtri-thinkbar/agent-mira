@@ -7,13 +7,11 @@ type MarketType = "seller" | "balanced" | "buyer";
 interface SpeedometerProps {
   marketType: MarketType;
   selectedMarketAnalysisOption?: string | null;
-  variant?:string;
 }
 
 export default function Speedometer({
   marketType,
   selectedMarketAnalysisOption,
-  variant
 }: SpeedometerProps) {
   const getSpeedometerValue = (type: MarketType): number => {
     switch (type) {
@@ -65,7 +63,6 @@ export default function Speedometer({
 
   const [dimensions, setDimensions] = useState(getSpeedometerDimensions());
 
-
   useEffect(() => {
     const handleResize = () => {
       setDimensions(getSpeedometerDimensions());
@@ -76,8 +73,8 @@ export default function Speedometer({
   }, []);
 
   return (
-    <div className={`bg-white p-4 sm:p-6 pb-4 relative w-full max-w-3xl mx-auto ${variant==="mobile" ? "rounded-b-[12px] border-[#E3EEFF]" : "border-4 border-[#B8D4FF]"}`}>
-      <div className={`relative w-full flex justify-center items-center ${variant=="mobile" ? "mb-12": null } sm:mb-16`}>
+    <div className="bg-white p-4 sm:p-6 pb-4 border-4 border-[#B8D4FF] relative w-full max-w-3xl mx-auto">
+      <div className="relative w-full flex justify-center items-center mb-12 sm:mb-16">
         <div className="relative">
           <ReactSpeedometer
             maxValue={1000}
@@ -87,7 +84,6 @@ export default function Speedometer({
             needleColor="#fff"
             ringWidth={dimensions.ringWidth}
             width={dimensions.width}
-            needleHeightRatio={dimensions.needleHeightRatio}
             height={dimensions.height}
             maxSegmentLabels={0}
             needleTransitionDuration={500}
@@ -96,29 +92,20 @@ export default function Speedometer({
             forceRender={true}
           />
           <div
-            className="absolute font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg xl:text-lg max-w-24 leading-4 text-wrap text-white/80 text-center"
+            className="absolute font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg leading-4 text-wrap text-white/80 text-center"
             style={{ left: "50%", top: "25%", transform: "translateX(-50%)" }}
           >
-            {speedometerText.balancedMarket} <br />
+            {speedometerText.balancedMarket} <br /> 
           </div>
-          {/* Labels */}
-          <div className={`absolute w-full font-[ClashDisplay-Medium] text-sm sm:text-base md:-bottom-1 lg:-bottom-1 2xl:-bottom-7 md:text-lg  leading-7 textColor flex justify-between ${variant=="mobile" ? "leading-none" : null }`}>
-            <span style={{ marginLeft: "20px" }}>
-              {speedometerText.sellersMarket}
-            </span>
-            <span style={{ marginRight: "20px" }}>
-              {speedometerText.buyersMarket}
-            </span>
+          <div className="absolute w-full font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg leading-7 textColor flex justify-between mb-0">
+            <span style={{ marginLeft: "20px" }}>{speedometerText.sellersMarket}</span>
+            <span style={{ marginRight: "20px" }}>{speedometerText.buyersMarket}</span>
           </div>
         </div>
       </div>
-      {
-        variant==="desktop" ? (
-          <div className="font-[ClashDisplay-Medium] absolute bottom-0 left-0 bg-[#B8D4FF] px-3 py-0.5 rounded-tr-[10px] text-sm sm:text-base md:text-lg font-medium text-blue-800/70">
+      <div className="font-[ClashDisplay-Medium] absolute bottom-0 left-0 bg-[#B8D4FF] px-3 py-0.5 rounded-tr-[10px] text-sm sm:text-base md:text-lg font-medium text-blue-800/70">
         {getHeaderText()}
       </div>
-        ) : null 
-      }
     </div>
   );
 }

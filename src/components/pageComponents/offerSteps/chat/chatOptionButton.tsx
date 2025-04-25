@@ -89,7 +89,7 @@ export function ChatOptionButton({
             ref={optionRefs && optionRefs[index]}
             className={cn(
               "flex items-center rounded-full justify-start gap-3 text-left p-2 cursor-pointer",
-              isSideBySide ? "sm:h-12 sm:w-40 px-2 h-10" : "w-full",
+              isSideBySide ? "h-12 w-40 px-4" : "w-full",
               isDataSwitch
                 ? isSelected
                 ? "bg-[#37D3AE]" // Green for selected data-switch

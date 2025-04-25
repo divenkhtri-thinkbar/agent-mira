@@ -1,8 +1,6 @@
 export { default as ResizablePanel } from './resizeablePanel';
 export { default as ChatContainer } from './chatContainer';
 export { default as NextStep } from './nextStep';
-export { default as CompareProperty } from './comparePropertyCard';
-export { default as RightBox } from './rightBox';
 
 // Chat
 export { AddressInput } from "./chat/addressInput";

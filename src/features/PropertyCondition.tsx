@@ -22,7 +22,6 @@ interface Step4ContentProps {
       | "quality-score"
   ) => void;
   onMarketAnalysisOptionSelect?: (optionText: string) => void;
-  handleInsideScoop?: (optionText: string) => void;
 }
 
 export default function Step4Content({
@@ -32,29 +31,15 @@ export default function Step4Content({
   onNextStep,
   onChatProgress,
   onMarketAnalysisOptionSelect,
-  handleInsideScoop,
 }: Step4ContentProps) {
   const messageIdCounter = useRef(0);
-  const [selectedQualityScoreId, setSelectedQualityScoreId] = useState<
-    string | null
-  >(null);
-  const [selectedInsideScoopId, setSelectedInsideScoopId] = useState<
-    string | null
-  >(null);
-  const [selectedRepairsNeededId, setSelectedRepairsNeededId] = useState<
-    string | null
-  >(null);
-  const [selectedInPersonId, setSelectedInPersonId] = useState<string | null>(
-    null
-  );
-  const [selectedFirstImpressionId, setSelectedFirstImpressionId] = useState<
-    string | null
-  >(null);
-  const [selectedMarketAnalysisId, setSelectedMarketAnalysisId] = useState<
-    string | null
-  >(null);
+  const [selectedQualityScoreId, setSelectedQualityScoreId] = useState<string | null>(null);
+  const [selectedInsideScoopId, setSelectedInsideScoopId] = useState<string | null>(null);
+  const [selectedRepairsNeededId, setSelectedRepairsNeededId] = useState<string | null>(null);
+  const [selectedInPersonId, setSelectedInPersonId] = useState<string | null>(null);
+  const [selectedFirstImpressionId, setSelectedFirstImpressionId] = useState<string | null>(null);
+  const [selectedMarketAnalysisId, setSelectedMarketAnalysisId] = useState<string | null>(null);
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
-  const [hasTriggeredFilterProperties, setHasTriggeredFilterProperties] = useState<boolean>(false); // New flag
   const optionRefs = useRef<React.RefObject<HTMLDivElement | null>[]>([]);
 
   const generateUniqueId = () => {
@@ -140,88 +125,82 @@ export default function Step4Content({
               />
             );
 
-            case "market-analysis":
-              if (optionRefs.current.length === 0) {
-                optionRefs.current = Array(5)
-                  .fill(null)
-                  .map(() => createRef<HTMLDivElement>());
-              }
-              return (
-                <ChatMessage
-                  key={message.id}
-                  message={{
-                    ...message,
-                    avatarUrl: agentAvatarUrl,
-                    isSelected: !!selectedInsideScoopId,
-                    selectedOptionId: selectedMarketAnalysisId,
-                    optionRefs: optionRefs.current,
-                    content: (
-                      <WinningOfferQuestion
-                        condition="inside-scoop"
-                        avatarUrl={agentAvatarUrl}
-                        variant="non-locking"
-                        optionRefs={optionRefs.current}
-                        onOptionSelect={(option) => {
-                          console.log("Selected option:", option.text);
-                          setSelectedInsideScoopId(option.id);
-                          setSelectedMarketAnalysisId(option.id);
-                          onMarketAnalysisOptionSelect?.(option.text);
-                          handleInsideScoop?.(option.text);
-                          if (!hasTriggeredFilterProperties) { // Check the flag
-                            setHasTriggeredFilterProperties(true); // Set it to true after first trigger
-                            setTimeout(() => {
-                              addMessage({
-                                id: generateUniqueId(),
-                                type: "filter-properties",
-                                content: "",
-                                showAvatar: false,
-                              });
-                            }, 1500);
-                          }
-                        }}
-                      />
-                    ),
-                  }}
-                />
-              );
-  
-            case "filter-properties":
-              return (
-                <ChatMessage
-                  key={message.id}
-                  message={{
-                    ...message,
-                    avatarUrl: agentAvatarUrl,
-                    isSelected: !!selectedRepairsNeededId,
-                    content: (
-                      <WinningOfferQuestion
-                        condition="repairs-needed"
-                        avatarUrl={agentAvatarUrl}
-                        onOptionSelect={(option) => {
-                          setSelectedRepairsNeededId(option.id);
+          case "market-analysis":
+            if (optionRefs.current.length === 0) {
+              optionRefs.current = Array(5)
+                .fill(null)
+                .map(() => createRef<HTMLDivElement>());
+            }
+            return (
+              <ChatMessage
+                key={message.id}
+                message={{
+                  ...message,
+                  avatarUrl: agentAvatarUrl,
+                  isSelected: !!selectedInsideScoopId,
+                  selectedOptionId: selectedMarketAnalysisId,
+                  optionRefs: optionRefs.current,
+                  content: (
+                    <WinningOfferQuestion
+                      condition="inside-scoop"
+                      avatarUrl={agentAvatarUrl}
+                      variant="non-locking"
+                      optionRefs={optionRefs.current}
+                      onOptionSelect={(option) => {
+                        setSelectedInsideScoopId(option.id);
+                        setSelectedMarketAnalysisId(option.id);
+                        onMarketAnalysisOptionSelect?.(option.text);
+                        setTimeout(() => {
+                          addMessage({
+                            id: generateUniqueId(),
+                            type: "filter-properties",
+                            content: "",
+                            showAvatar: false,
+                          });
+                        }, 1500);
+                      }}
+                    />
+                  ),
+                }}
+              />
+            );
+          case "filter-properties":
+            return (
+              <ChatMessage
+                key={message.id}
+                message={{
+                  ...message,
+                  avatarUrl: agentAvatarUrl,
+                  isSelected: !!selectedRepairsNeededId,
+                  content: (
+                    <WinningOfferQuestion
+                      condition="repairs-needed"
+                      avatarUrl={agentAvatarUrl}
+                      onOptionSelect={(option) => {
+                        setSelectedRepairsNeededId(option.id);
+                        setTimeout(() => {
+                          addMessage({
+                            id: generateUniqueId(),
+                            type: "agent",
+                            content: textData.step4Content.agentMessages.repairsAssurance,
+                            showAvatar: true,
+                          });
                           setTimeout(() => {
                             addMessage({
                               id: generateUniqueId(),
-                              type: "agent",
-                              content: textData.step4Content.agentMessages.repairsAssurance,
-                              showAvatar: true,
+                              type: "market-insights",
+                              content: "",
+                              showAvatar: false,
                             });
-                            setTimeout(() => {
-                              addMessage({
-                                id: generateUniqueId(),
-                                type: "market-insights",
-                                content: "",
-                                showAvatar: false,
-                              });
-                              onChatProgress?.("in-person");
-                            }, 1500);
+                            onChatProgress?.("in-person");
                           }, 1500);
-                        }}
-                      />
-                    ),
-                  }}
-                />
-              );
+                        }, 1500);
+                      }}
+                    />
+                  ),
+                }}
+              />
+            );
 
           case "market-insights":
             return (
@@ -270,27 +249,21 @@ export default function Step4Content({
                           addMessage({
                             id: generateUniqueId(),
                             type: "agent",
-                            content:
-                              textData.step4Content.agentMessages
-                                .firstImpressionPrompt,
+                            content: textData.step4Content.agentMessages.firstImpressionPrompt,
                             showAvatar: true,
                           });
                           setTimeout(() => {
                             addMessage({
                               id: generateUniqueId(),
                               type: "agent",
-                              content:
-                                textData.step4Content.agentMessages
-                                  .submitAnswerPrompt,
+                              content: textData.step4Content.agentMessages.submitAnswerPrompt,
                               showAvatar: true,
                             });
                             setTimeout(() => {
                               addMessage({
                                 id: generateUniqueId(),
                                 type: "agent",
-                                content:
-                                  textData.step4Content.agentMessages
-                                    .dreamHomePrompt,
+                                content: textData.step4Content.agentMessages.dreamHomePrompt,
                                 showAvatar: true,
                               });
                               setTimeout(() => {
@@ -328,8 +301,7 @@ export default function Step4Content({
                           addMessage({
                             id: generateUniqueId(),
                             type: "agent",
-                            content:
-                              textData.step4Content.agentMessages.formResponse,
+                            content: textData.step4Content.agentMessages.formResponse,
                             showAvatar: true,
                           });
                           setTimeout(() => {
@@ -358,9 +330,7 @@ export default function Step4Content({
                   avatarUrl: agentAvatarUrl,
                   content: (
                     <NextStep
-                      content={
-                        textData.step4Content.agentMessages.confirmationMessage
-                      }
+                      content={textData.step4Content.agentMessages.confirmationMessage}
                       onNextStep={onNextStep}
                     />
                   ),

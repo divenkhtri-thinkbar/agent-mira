@@ -20,7 +20,6 @@ interface PropertyCardProps {
   features: string[];
   description: string;
   isLoading?: boolean;
-  title?: string
 }
 
 export function PropertyCard({
@@ -35,7 +34,6 @@ export function PropertyCard({
   features,
   description,
   isLoading = false,
-  title
 }: PropertyCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -66,19 +64,21 @@ export function PropertyCard({
   }, [direction]);
 
   useEffect(() => {
-    if (isImageExpanded) {
-      document.body.classList.add("overflow-visible");
-    } else {
-      document.body.classList.remove("overflow-visible");
+    if (typeof document !== 'undefined') {
+      if (isImageExpanded) {
+        document.body.classList.add("overflow-visible");
+      } else {
+        document.body.classList.remove("overflow-visible");
+      }
+      return () => {
+        document.body.classList.remove("overflow-visible");
+      };
     }
-    return () => {
-      document.body.classList.remove("overflow-visible");
-    };
   }, [isImageExpanded]);
 
-  if (isLoading) {
-    return <PropertyCardSkeleton />;
-  }
+  // if (isLoading) {
+  //   return <PropertyCardSkeleton />;
+  // }
 
   const propertyCardText = textData.step1Content.propertyCard;
 
@@ -86,7 +86,7 @@ export function PropertyCard({
     <div className="w-full bg-[#F4F4F4] max-w-3xl mx-auto h-screen px-4 pt-6 pb-10">
       <div>
         <h1 className="font-[ClashDisplay-Medium] text-xl leading-9 text-[#1354B6] mb-4 text-center">
-          {title}
+          {propertyCardText.title}
         </h1>
 
         <div className="bg-[#B8D4FF] rounded-3xl overflow-hidden">

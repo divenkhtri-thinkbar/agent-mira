@@ -9,64 +9,6 @@ import PropertyFilterList from "@/components/pageComponents/offerSteps/property/
 import { house } from "@/assets/images";
 import textData from '@/config/text.json';
 
-// Define types for textData
-interface Address {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-
-interface ComparableProperty {
-  _comment?: string;
-  imageUrl: string;
-  matchPercentage: number;
-  price: number;
-  address: Address;
-  distance: string;
-  beds: number;
-  baths: number;
-  sqft: number;
-  similarFeatures: string[];
-  keyDifferences: string[];
-  soldDate: string;
-}
-
-interface Step2Content {
-  _comment?: string;
-  agentMessages: {
-    _comment?: string;
-    intro: string;
-    propertyMatch: string;
-    presentComparables: string;
-    confirmationMessage: string;
-  };
-  presentPropertyCard: {
-    _comment?: string;
-    labels: {
-      title: string;
-      pricePerSqFt: string;
-      similarFeatures: string;
-      keyDifferences: string;
-      match: string;
-      beds: string;
-      baths: string;
-      sqft: string;
-    };
-  };
-  data: {
-    _comment?: string;
-    comparableProperties: ComparableProperty[];
-  };
-}
-
-interface TextData {
-  step2Content: Step2Content;
-}
-
-// Assert type for textData
-const typedTextData: TextData = textData;
-
 interface Step2ContentProps {
   messages: MessageType[];
   addMessage: (message: MessageType) => void;
@@ -80,11 +22,9 @@ export default function Step2Content({
   agentAvatarUrl,
   onNextStep,
 }: Step2ContentProps) {
-  const properties = typedTextData.step2Content.data.comparableProperties.map((property: ComparableProperty, index: number) => ({
-    id: `property-${index}`, // Generate a unique ID
-    address: `${property.address.street}, ${property.address.city}, ${property.address.state} ${property.address.zip}`, // Convert Address to string
-    imageUrl: house, // Override with house image
-    matchPercentage: property.matchPercentage,
+  const properties = textData.step2Content.data.comparableProperties.map((property: any) => ({
+    ...property,
+    imageUrl: house, // Add the image reference here since it’s not in text.json
   }));
 
   const messageIdCounter = useRef(0);
@@ -101,7 +41,7 @@ export default function Step2Content({
       addMessage({
         id: generateUniqueId(),
         type: "agent",
-        content: typedTextData.step2Content.agentMessages.intro,
+        content: textData.step2Content.agentMessages.intro,
         showAvatar: true,
       });
 
@@ -109,7 +49,7 @@ export default function Step2Content({
         addMessage({
           id: generateUniqueId(),
           type: "agent",
-          content: typedTextData.step2Content.agentMessages.propertyMatch,
+          content: textData.step2Content.agentMessages.propertyMatch,
           showAvatar: true,
         });
 
@@ -117,7 +57,7 @@ export default function Step2Content({
           addMessage({
             id: generateUniqueId(),
             type: "agent",
-            content: typedTextData.step2Content.agentMessages.presentComparables,
+            content: textData.step2Content.agentMessages.presentComparables,
             showAvatar: true,
           });
 
@@ -128,7 +68,7 @@ export default function Step2Content({
               content: "",
               showAvatar: false,
             });
-          }, 7000); // Changed from 1500ms to 8000ms (8 seconds)
+          }, 1500);
         }, 1500);
       }, 1500);
     }
@@ -200,7 +140,7 @@ export default function Step2Content({
                             type: "confirmation",
                             content: (
                               <NextStep
-                                content={typedTextData.step2Content.agentMessages.confirmationMessage}
+                                content={textData.step2Content.agentMessages.confirmationMessage}
                                 key="2"
                                 onNextStep={onNextStep}
                               />
@@ -223,7 +163,7 @@ export default function Step2Content({
                   avatarUrl: agentAvatarUrl,
                   content: (
                     <NextStep
-                      content={typedTextData.step2Content.agentMessages.confirmationMessage}
+                      content={textData.step2Content.agentMessages.confirmationMessage}
                       key={message.id}
                       onNextStep={onNextStep}
                     />

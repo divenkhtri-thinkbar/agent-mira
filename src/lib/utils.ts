@@ -7,9 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 
 // utils/getMatchColor.ts
 export const getMatchColor = (matchPercentage?: number): string => {
-  if (matchPercentage === undefined) return "bg-[#FFC251]"; // Default
-  if (matchPercentage < 40) return "bg-[#FF0000]"; // Red
-  if (matchPercentage < 70) return "bg-[#FFEE51]"; // Yellowish
-  if (matchPercentage <= 90) return "bg-[#FFC251]"; // Orangish-yellow
-  return "bg-[#37D3AE]"; // Dark blue
+  if (matchPercentage === undefined) return "bg-[#B8D4FF]"; // Default
+  if (matchPercentage  < 70) return "bg-[#ffe300]"; // Yellowish
+  if (matchPercentage > 70) return "bg-[#FFB952]"; // Orange
+  if (matchPercentage > 80) return "bg-emerald-400"; // green
+  return "bg-[#B8D4FF]"; // Dark blue
 };

@@ -116,7 +116,7 @@ export default function Step6Content({
                             }, 1500);
                           }, 1500);
                         }}
-                        initialOffer={5005000}
+                        initialOffer={5504000}
                       />
                     ),
                   }}
