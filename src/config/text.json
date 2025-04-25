@@ -1,0 +1,720 @@
+{
+    "_comment": "Configuration file for Offer Savant application content",
+    
+    "homepage": {
+        "_comment": "Content for the homepage",
+        "welcomeTitle": "Welcome to",
+        "brandName": "Offer Savant",
+        "tagline": "Your Smartest Step Toward\nOwning Your Dream Home",
+        "buttonText": "Create Your Offer",
+        "description": "Let's embark on this journey together to discover your winning offer—tailored to your goals, preferences, and the current market.",
+        "descriptionMobile": "Making the right offer isn’t just a number—it’s the key to securing your dream home without overpaying.",
+        "faq": "FAQ",
+        "TipsAdvice": "Tips and advice",
+        "OngoingOffer":"OngoingOffer"
+    },
+    "chat": {
+        "welcome": "Hi there! I’m Agent Mira, your home-buying consultant. Let’s work together to craft the perfect offer for your dream home.",
+        "intro": "To get started, can you tell me the address of the home you’re interested in making an offer for?",
+        "userResponse": "Thanks for your message! How can I assist further?",
+        "cardSelected": "You selected an offer. Let’s proceed with the details.",
+        "addressLabel":"Enter the address of the property here…",
+        "locationGreet":"Getting Location",
+        "locationPin":"18, xyz street, miami florida,12.08.2025",
+        "addressThank":"Thanks for sharing the address! While I’m pulling up the details of this home, let me ask you an important question.",
+        "intermediateMsg":"To add an intermediate message here",
+        "marketInsight":"Done! I’ve got the market insights ready. Let’s take a look and see what they tell us about this property."
+      },
+    "Badges": {
+        "Badge_button_1": {
+            "id": 1,
+            "label": "Verifying Property Information"
+        },
+        "Badge_button_2": {
+            "id": 2,
+            "label": "Presenting Comparable Properties"
+        },
+        "Badge_button_3": {
+            "id": 3,
+            "label": "Analyzing Current Market Conditions"
+        },
+        "Badge_button_4": {
+            "id": 4,
+            "label": "Property Condition Input"
+        },
+        "Badge_button_5": {
+            "id": 5,
+            "label": "Personalizing the Offer Based on the Dream Home"
+        },
+        "Badge_button_6": {
+            "id": 6,
+            "label": "Presenting the recommended offer"
+        }
+    },  
+
+    
+    "login": {
+        "_comment": "Content for the login page",
+        "title": "Login to Your Account",
+        "emailPlaceholder": "Enter your email",
+        "passwordPlaceholder": "Enter your password",
+        "forgotPassword": "Forgot Password?",
+        "loginButton": "Login",
+        "noAccount": "Don't have an account?",
+        "signupLink": "Sign Up"
+    },
+    
+    "sidebar": {
+        "_comment": "Content for the sidebar navigation",
+        "username": "Rajat",
+        "buttonText": "Create an offer",
+        "headingText": "Your Offers",
+        "home": "Home",
+        "faq": "FAQ"
+    },
+    
+
+
+    
+    "offerProcess": {
+        "_comment": "Defines the steps in the offer creation process",
+        "steps": [
+            {
+                "_comment": "Step 1: Verify property details",
+                "id": 1,
+                "title": "Verifying Property Information"
+            },
+            {
+                "_comment": "Step 2: Show comparable properties",
+                "id": 2,
+                "title": "Presenting Comparable Properties"
+            },
+            {
+                "_comment": "Step 3: Analyze market conditions",
+                "id": 3,
+                "title": "Analyzing Current Market Conditions"
+            },
+            {
+                "_comment": "Step 4: Assess property condition",
+                "id": 4,
+                "title": "Property Condition Input"
+            },
+            {
+                "_comment": "Step 5: Personalize the offer based on user preferences",
+                "id": 5,
+                "title": "Personalizing The Offer"
+            },
+            {
+                "_comment": "Step 6: Present the recommended offer",
+                "id": 6,
+                "title": "The Recommended Offer"
+            }
+        ]
+    },
+    
+    "step1Content": {
+        "_comment": "Content for Step 1: Verifying Property Information",
+        "agentMessages": {
+            "_comment": "Messages from the virtual agent for Step 1",
+            "intro": "Hi there! I'm Agent Mira, your home-buying consultant. Let's work together to craft the perfect offer for your dream home!",
+            "requestAddress": "To get started, can you tell me the address of the home you're interested in making an offer for?",
+            "addressReceived": "Thanks for sharing the address! While I’m pulling up the details of this home, let me ask you an important question.",
+            "winningOfferResponse": "Got it! I’ll focus on crafting a competitive offer to maximize your chances of winning this home.",
+            "propertyRespone": " Here’s what I’ve found about this property based on its listing information.",
+            "optionsResponse": "Thanks for sharing your priorities! I understand your goals for this property, and I’m here to help you make the best decision.",
+            "confirmationMessage": "Now we’ll dive into the next step: analyzing this property and the market to create your personalized offer!"
+        },
+        "winningOfferQuestion": {
+            "_comment": "Question to understand user's offer priorities",
+            "condition": "winning-offer-option",
+            "question": "How do you define a winning offer? What’s most important to you when making this decision?",
+            "options": [
+                "I want to win this home, even if it means a higher offer",
+                "I want a great deal but still be competitive",
+                "I’m cautious & prefer a conservative offer",
+                "I’m not sure yet—let’s explore the options together"
+            ]
+        },
+        "optionsQuestion": {
+            "_comment": "Question to confirm property details accuracy",
+            "condition": "make-adjustment",
+            "question": "If there’s anything that doesn’t match what you’ve seen, let me know so we can make adjustments.",
+            "options": [
+                "Yes, everything looks correct.",
+                "No, I noticed a discrepancy."
+            ]
+        },
+        "propertyCard": {
+            "_comment": "Data and labels for the property verification card",
+            "title": "Verifying Property Information",
+            "footer": {
+                "_comment": "Footer content for the property card",
+                "dataSourcedFrom": "Data sourced from",
+                "showMore": "Show More",
+                "showLess": "Show Less"
+            },
+            "propertyStats": {
+                "_comment": "Labels for property statistics",
+                "labels": {
+                    "beds": "Beds",
+                    "baths": "Baths",
+                    "sqft": "SqFt",
+                    "builtIn": "Year Built",
+                    "hoa": "HOA / mo"
+                }
+            },
+            "data": {
+                "_comment": "Property data to be displayed",
+                "images": [
+                    "verifyProperty",
+                    "house",
+                    "verifyProperty"
+                ],
+                "price": 4995000,
+                "beds": 5,
+                "baths": 7,
+                "sqft": 4712,
+                "builtIn": 1990,
+                "hoa": "N/A",
+                "propertyType": "Single Family Home",
+                "features": [
+                    "Volume Ceilings - Roman Tub, Volume Ceilings, Walk-In Closet(s), Maid/In-Law Quarters, Storage",
+                    "French Doors - Marble, Wood",
+                    "Dual Ovens - Clear Impact Glass, Impact Glass",
+                    "Putting Green - Clear Impact Glass, Impact Glass",
+                    "Impact Glass - Clear Impact Glass, Impact Glass"
+                ],
+                "description": "Located on upscale Asturia Avenue, just a block from Granada Golf Course, this elegantly updated home features soaring volume ceilings, French doors, and an open-flow design. Highlights include a gourmet kitchen with dual ovens, a lush backyard with a putting green and splash pool, and complete impact glass for added security"
+            }
+        },
+        "addressSuggestions": [
+            "1132 Asturia Ave, Coral Gables, FL 33134",
+            "1133 Asturia Ave, Coral Gables, FL 33135",
+            "1134 Asturia Ave, Coral Gables, FL 33136"
+        ],
+        "defaultPropertyViewAddress": "xyz,1234, street, FL, 4006817",
+        "propertyViewLoadingMessage": "Buying a home is one of the biggest decisions you’ll ever make. Getting the offer price just right."
+    },
+    
+    "step2Content": {
+        "_comment": "Content for Step 2: Presenting Comparable Properties",
+        "agentMessages": {
+            "_comment": "Messages from the virtual agent for Step 2",
+            "intro": "Now let’s dive into the market analysis! The first step is to look at comparable properties that have recently sold in the area.",
+            "propertyMatch": "To do this, I’ve matched your target property at 1132 Asturia Ave, Coral Gables, FL 33134 over 300 characteristics to find the most comparable properties in the area. These are homes that are similar in size, features, location, and market trends.",
+            "presentComparables": "Here’s what I found. Would you like to take a look at the comparable properties to better understand the market?",
+            "confirmationMessage": "Sounds good! I’ll use this data to help craft your winning offer."
+        },
+        "presentPropertyCard": {
+            "_comment": "Labels for the comparable properties card",
+            "labels": {
+                "title": "Presenting Comparable Properties",
+                "pricePerSqFt": "Price per SqFt",
+                "similarFeatures": "Similar features",
+                "keyDifferences": "Key differences",
+                "match": "Match",
+                "beds": "Beds",
+                "baths": "Baths",
+                "sqft": "SqFt"
+            }
+        },
+        "data": {
+            "title":"Compare Properties",
+            "match":"match",
+            "_comment": "Data for comparable properties",
+            "comparableProperties": [
+                {
+                    "_comment": "Comparable property 1",
+                    "imageUrl": "verifyProperty",
+                    "matchPercentage": 92,
+                    "price": 5250000,
+                    "address": {
+                        "street": "2114 Granada Blvd, Coral Gables FL 33134",
+                        "city": "Miami",
+                        "state": "FL",
+                        "zip": "33101"
+                    },
+                    "distance": "0.25 miles",
+                    "beds": 6,
+                    "baths": 6,
+                    "sqft": 4825,
+                    "similarFeatures": [
+                        "Granada Golf",
+                        "Gourmet Kitchen",
+                        "Lush Outdoor"
+                    ],
+                    "keyDifferences": [
+                        "Solar Panels",
+                        "Historic Charm"
+                    ],
+                    "soldDate": "Sold: 11/14/2024"
+                },
+                {
+                    "_comment": "Comparable property 2",
+                    "imageUrl": "house",
+                    "matchPercentage": 88,
+                    "price": 5100000,
+                    "address": {
+                        "street": "2113 Granada Blvd, Coral Gables FL 33134",
+                        "city": "Miami",
+                        "state": "FL",
+                        "zip": "33102"
+                    },
+                    "distance": "1.2 miles",
+                    "beds": 5,
+                    "baths": 7,
+                    "sqft": 4800,
+                    "similarFeatures": [
+                        "Volume Ceilings",
+                        "Marble Flooring",
+                        "Impact Glass"
+                    ],
+                    "keyDifferences": [
+                        "Newer construction (2010)",
+                        "Larger garage"
+                    ],
+                    "soldDate": "Sold: 11/20/2023"
+                },
+                {
+                    "_comment": "Comparable property 3",
+                    "imageUrl": "verifyProperty",
+                    "matchPercentage": 85,
+                    "price": 4900000,
+                    "address": {
+                        "street": "2114 Granada Blvd, Coral Gables FL 33134",
+                        "city": "Miami",
+                        "state": "FL",
+                        "zip": "33103"
+                    },
+                    "distance": "0.8 miles",
+                    "beds": 5,
+                    "baths": 6,
+                    "sqft": 4600,
+                    "similarFeatures": [
+                        "Wood Flooring",
+                        "Storage Space",
+                        "Impact Glass"
+                    ],
+                    "keyDifferences": [
+                        "Older construction (1985)",
+                        "No Roman Tub"
+                    ],
+                    "soldDate": "Sold: 09/30/2023"
+                }
+            ]
+        }
+    },
+    
+    "step3Content": {
+        "_comment": "Content for Step 3: Analyzing Current Market Conditions",
+        "agentMessages": {
+            "_comment": "Messages from the virtual agent for Step 3",
+            "intro": "I’ll take a closer look at the current market conditions for your target property.",
+            "competitivePricing": "This information will help us fine-tune your offer price and identify the Competitive Pricing Zone—the sweet spot where your offer is competitive without overpaying.",
+            "loading": "Give me just a moment to crunch the numbers and uncover these key market insights!",
+            "confirmationMessage": "These factors give us valuable insight into how to position your offer. Let’s use this data to refine our pricing strategy!"
+        },
+        "marketGauge": {
+            "_comment": "Content and data for the market gauge component",
+            "title": "Analyzing Current Market Conditions",
+            "tabs": {
+                "_comment": "Tab labels for market analysis scope",
+                "home": "Home",
+                "neighbourhood": "Neighbourhood",
+                "city": "City"
+            },
+            "speedometer": {
+                "_comment": "Labels for the market type speedometer",
+                "balancedMarket": "Balanced Market",
+                "sellersMarket": "Seller's market",
+                "buyersMarket": "Buyers Market",
+                "headerOptions": {
+                    "_comment": "Options for market analysis categories",
+                    "priceTrends": "Price Trends",
+                    "supplyAvailability": "Supply and Availability",
+                    "demandCompetition": "Demand and Competition"
+                }
+            },
+            "stats": {
+                "_comment": "Labels for market statistics",
+                "priceTrends": {
+                    "_comment": "Stats for Price Trends category",
+                    "medianPrice": "Median Price",
+                    "saleToListRatio": "Sale To List Ratio",
+                    "priceReducedListings": "Price Reduced Listings",
+                    "medianDaysOnMarket": "Median Days on Market",
+                    "other": "Other",
+                    "belowAskingOnAvg": "% Below Asking On Avg.",
+                    "fromLastMonth": "From Last Month",
+                    "days": "Days"
+                },
+                "supplyAvailability": {
+                    "_comment": "Stats for Supply and Availability category",
+                    "activeListings": "Active Listings",
+                    "absorptionRate": "Absorption Rate",
+                    "monthsOfInventory": "Months of Inventory",
+                    "monthly": "Monthly",
+                    "lastMonth": "Last month",
+                    "twoMonthsAgo": "2mo. ago"
+                },
+                "demandCompetition": {
+                    "_comment": "Stats for Demand and Competition category",
+                    "cashTransactions": "Cash Transactions",
+                    "priceChanges": "Price Changes",
+                    "marketActivity": "Market Activity",
+                    "timing": "Timing",
+                    "ofAllSales": "of all sales",
+                    "timeToDrop": "Time to drop",
+                    "newListings": "New listings",
+                    "avgTimeToClose": "Avg. time to close"
+                }
+            },
+            "data": {
+                "_comment": "Data for market gauge metrics",
+                "initialMarketType": "balanced",
+                "medianPrice": 682000,
+                "priceYoY": 7,
+                "priceMoM": 2,
+                "saleToListRatio": 94,
+                "belowAsking": 2.5,
+                "priceReduced": 38,
+                "lastMonthChange": 5,
+                "medianDays": 46,
+                "daysYoY": 16,
+                "daysVsLast": 2
+            }
+        },
+        "marketConditionsLoadingMessage": "Price Trends: How property values in the area have been changing recently."
+    },
+    
+    "step4Content": {
+        "_comment": "Content for Step 4: Property Condition Input",
+        "agentMessages": {
+            "_comment": "Messages from the virtual agent for Step 4",
+            "intro": "Let’s look beyond the surface and uncover the true quality and potential of your future home. We’ll also go into comparable sales to fine tune the offer price. This section should take five-ten minutes to complete. I’m excited for you!",
+            "standOutFeatures": "Here are the stand out features",
+            "qualityScorePrompt": "Want to know more about the quality score?",
+            "insideScoopResponse": "Let’s uncover the details most people won’t share with you! Here’s some repairs needed for this home.",
+            "repairsAssurance": "Don’t worry! We’ll account for this in the home’s offer price. If you have more questions about the repairs, just ask me in the chat box below.",
+            "firstImpressionPrompt": "Did you get a chance to visit the property? If so, I’d love to hear your thoughts! Let’s start with the overall condition of the home.",
+            "fileUpdatePlaceholder": "File update placeholder",
+            "dreamHomePrompt": "Tell me, what do you imagine your dream home to look like? Feel free to share anything that helps me understand your preferences—details about the home, features you love, or even your lifestyle goals.",
+            "submitAnswerPrompt": "How well-maintained did it seem? Were there any repairs needed, or anything that stood out to you?",
+            "formResponse": "Wow, I love seeing your inspiration! This really helps me understand your vision. Let’s make sure this property aligns with it",
+            "confirmationMessage": "These factors give us valuable insight into how to position your offer. Let’s use this data to refine our pricing strategy!"
+        },
+        "imageCard": {
+            "_comment": "Content for the image card component",
+            "title": "Property Condition Input",
+            "standOutFeature": "This place has amazing views of the woods.",
+            "labels": {
+                "_comment": "Labels for image annotations",
+                "fence": "Fence",
+                "patio": "Patio"
+            }
+        },
+        "qualityScoreCard": {
+            "_comment": "Content for the quality score card component",
+            "title": "Property Quality Assessment",
+            "overallQualityScore": "Overall Quality Score",
+            "qualityScoreLabel": "Quality score",
+            "dropdown": {
+                "_comment": "Dropdown options for quality score breakdown",
+                "title": "Here’s the breakdown of all the scores",
+                "scores": [
+                    {
+                        "score": 1,
+                        "title": "Tear down",
+                        "description": "Requires major repairs and is unsafe or unlivable as-is."
+                    },
+                    {
+                        "score": 2,
+                        "title": "Fixer upper",
+                        "description": "Needs maintenance or component replacements to improve livability."
+                    },
+                    {
+                        "score": 3,
+                        "title": "Entry level",
+                        "description": "Requires minor maintenance or updates but is generally functional."
+                    },
+                    {
+                        "score": 4,
+                        "title": "Premium",
+                        "description": "Well-maintained with recent upgrades and minimal wear."
+                    },
+                    {
+                        "score": 5,
+                        "title": "Luxe",
+                        "description": "In excellent condition with high-quality features and no repairs needed."
+                    },
+                    {
+                        "score": 6,
+                        "title": "Top-tier",
+                        "description": "Brand-new, flawless condition with luxury features."
+                    }
+                ]
+            },
+            "labels": {
+                "_comment": "Labels for quality score annotations",
+                "fence": "Fence",
+                "patio": "Patio"
+            }
+        },
+        "videoCard": {
+            "_comment": "Content for the video card component",
+            "title": "Property Condition Input"
+        },
+        "propertyForm": {
+            "_comment": "Content for the property update form",
+            "agentMessage": "Thanks for catching that! Please pick which information to be updated or feel free to type your discrepancy.",
+            "placeholders": {
+                "_comment": "Placeholders for form fields",
+                "bedrooms": "Bedrooms",
+                "bathrooms": "Bathrooms",
+                "squareFeet": "sq ft",
+                "other": "Type what it is here..."
+            },
+            "labels": {
+                "_comment": "Labels for form buttons and fields",
+                "other": "Other",
+                "submit": "Submit"
+            }
+        }
+    },
+    
+    "step5Content": {
+        "_comment": "Content for Step 5: Personalizing The Offer",
+        "agentMessages": {
+            "_comment": "Messages from the virtual agent for Step 5",
+            "intro": "Tell me, what do you imagine your dream home to look like? Feel free to share anything that helps me understand your preferences—details about the home, features you love, or even your lifestyle goals.",
+            "featuresSubmittedResponse": "Got it! Your priorities are clear, and I’ll take these into account as we finalize your offer.",
+            "featuresSkippedResponse": "No worries! We’ll proceed with what we have so far.",
+            "formPrompt": "Now you can type, upload images to describe your dream home.",
+            "formResponse": "Wow, I love seeing your inspiration! This really helps me understand your vision. Let’s make sure this property aligns with it",
+            "confirmationMessage": "Now that I understand your dream home and priorities, I’ll analyze how this property aligns with them and tailor your offer accordingly. Let’s move forward"
+        },
+        "propertCard": {
+            "title": "Personalizing the Offer Based on the Dream Home"
+        },
+        "radioQuestionButton": {
+            "_comment": "Radio button question for dream home features",
+            "feedback": {
+                "question": "Here are some features buyers often prioritize in their dream home. Select any that apply to you!",
+                "options": [
+                    "Spacious kitchen",
+                    "Large backyard",
+                    "Modern design",
+                    "Close to schools",
+                    "Quiet neighborhood",
+                    "Large garage",
+                    "Open floor plan",
+                    "Proximity to parks",
+                    "Updated bathrooms",
+                    "Energy efficiency",
+                    "Natural light",
+                    "Home office space"
+                ]
+            }
+        }
+    },
+    
+    "step6Content": {
+        "_comment": "Content for Step 6: The Recommended Offer",
+        "agentMessages": {
+            "_comment": "Messages from the virtual agent for Step 6",
+            "intro": "Thank you for sharing all the important information to help me design the best offer for your target property",
+            "reviewOfferPrompt": "Please take a moment to review this offer.",
+            "offerSubmittedResponse": "Great! You’ll receive confirmation shortly",
+            "expertReviewMessage": "Meanwhile, I’ll share these details with one of our expert real estate agents. They’ll double-check my analysis to ensure I haven’t missed anything and confirm the final offer with you soon"
+        },
+        "finalOfferCard": {
+            "_comment": "Content and data for the final offer card",
+            "title": "Presenting the Recommended Offer",
+            "matchSection": {
+                "_comment": "Labels for the match section",
+                "matchLabel": "Match with your requirement",
+                "matchTitle": "Matches",
+                "partialMatchTitle": "Partial Match",
+                "matchSuffix": "Match"
+            },
+            "offerSection": {
+                "_comment": "Labels for the offer recommendation section",
+                "recommendationLabel": "Offer savant recommendation",
+                "offerDescription": "This offer Balances your need to win this home without overpaying"
+            },
+            "liveMetricsSection": {
+                "_comment": "Labels and insights for live metrics",
+                "liveMetricsLabel": "Live metrics - updates as you adjust your offer",
+                "winProbability": "Win Probability",
+                "offerStrategy": "Offer strategy",
+                "moreAggressive": "More aggressive",
+                "yourOffer": "Your offer",
+                "marketConditions": "Market conditions",
+                "listOffer": "List offer",
+                "marketInsights": "Market insights",
+                "insightsList": [
+                    "Recent comparable sales suggest strong market analysis",
+                    "Property condition assessment indicates good value",
+                    "Current market trends favor balanced offers",
+                    "Similar homes in the area have sold within 2% of list price"
+                ]
+            },
+            "validityMessage": "This offer recommendation is valid for the next {validityPeriod} days and is based on current market condition",
+            "data": {
+                "_comment": "Data for the recommended offer",
+                "propertyImage": "house",
+                "propertyAddress": "XYZ Building, 1234 road, FL 100048",
+                "matchPercentage": 95,
+                "matches": [
+                    "Amenities are distant",
+                    "High Neighborhood Safety",
+                    "High Quality of Local Schools"
+                ],
+                "partialMatches": [
+                    "Kitchen size slightly smaller than pretend"
+                ],
+                "offerAmount": 5005000,
+                "bonusAmount": 10000,
+                "winProbability": 70,
+                "offerStrategy": "Balanced",
+                "marketConditions": "Seller's market",
+                "listOffer": 4995000,
+                "competitionLevel": "High competition",
+                "validityPeriod": 7
+            }
+        },
+        "offerAdjustmentSlider": {
+            "_comment": "Content for the offer adjustment slider",
+            "agentMessage": "Now would you like to customise your offer? How competitive would you like your offer to be?",
+            "sliderTitle": "Adjust offer",
+            "instruction": "Move the slider to see how different offer amounts affect your win probability and market position",
+            "adjustmentOptions": [
+                {
+                    "text": "Stay conservative",
+                    "description": "Prioritise your budget",
+                    "icon": "dollar-sign"
+                },
+                {
+                    "text": "Balance value & win",
+                    "description": "Competitive yet reasonable",
+                    "icon": "minimize-2"
+                },
+                {
+                    "text": "Win this home",
+                    "description": "Maximise winning chances",
+                    "icon": "award"
+                }
+            ],
+            "buttons": {
+                "_comment": "Button labels for the slider",
+                "skip": "Skip",
+                "submit": "Submit"
+            }
+        },
+        "recommendedOfferLoadingMessage": "Understanding Your Goals: We discussed your definition of a winning offer and what your dream home looks like."
+    },
+    
+    "winningOfferQuestions": {
+        "_comment": "Reusable questions for various steps",
+        "winningOfferOption": {
+            "_comment": "Question about defining a winning offer",
+            "question": "How do you define a winning offer? What’s most important to you when making this decision?",
+            "options": [
+                "I want to win this home, even if it means a higher offer",
+                "I want a great deal but still be competitive",
+                "I’m cautious & prefer a conservative offer",
+                "I’m not sure yet—let’s explore the options together"
+            ]
+        },
+        "makeAdjustment": {
+            "_comment": "Question about adjusting property details",
+            "question": "If there’s anything that doesn’t match what you’ve seen, let me know so we can make adjustments.",
+            "options": [
+                "Yes, everything looks correct.",
+                "No, I’d like to make adjustments"
+            ]
+        },
+        "insideScoop": {
+            "_comment": "Question about property quality details",
+            "question": "Curious about the quality of a specific area? Just click to get the inside scoop!",
+            "options": [
+                "Exterior",
+                "Interior",
+                "Kitchen",
+                "Bedroom",
+                "Bathroom"
+            ]
+        },
+        "propertyInPerson": {
+            "_comment": "Question about visiting the property",
+            "question": "Have you seen the property in person?",
+            "options": [
+                "Yes I have visited the property",
+                "No, I haven’t visited the property"
+            ]
+        },
+        "firstImpression": {
+            "_comment": "Question about first impressions",
+            "question": "What was your first impression of the property?",
+            "options": [
+                "Not My Style",
+                "Its 'Okay'.",
+                "Pretty Average",
+                "Looks Nice",
+                "Absolutely Love it"
+            ]
+        },
+        "featuresLooking": {
+            "_comment": "Question about desired features",
+            "question": "Are there specific features you’re looking for in your dream home?",
+            "options": [
+                "Spacious kitchen.",
+                "Large backyard.",
+                "Modern design.",
+                "Close to schools.",
+                "Large backyard."
+            ]
+        },
+        "marketInsights": {
+            "_comment": "Question about viewing market insights",
+            "question": "Would you like to see the key market insights for this property?",
+            "options": [
+                "Yes, show me the insights",
+                "No, skip to the next step"
+            ]
+        },
+        "marketAnalysis": {
+            "_comment": "Question about market analysis preferences",
+            "question": "Would you like to see a market analysis?",
+            "options": [
+                "Show Price Trends",
+                "Show Supply and Demand",
+                "Show Market Type"
+            ]
+        },
+        "knowAboutQualityScore": {
+            "_comment": "Question about quality score details",
+            "question": "What would you like to know about the quality score?",
+            "options": [
+                "Skip",
+                "Yes, please"
+            ]
+        },
+        "repairsNeeded": {
+            "_comment": "Question about viewing repairs",
+            "question": "Let’s uncover the details most people won’t share with you! Here’s some repairs needed for this home.",
+            "options": [
+                "Skip",
+                "Show Repairs"
+            ]
+        },
+        "reportDownload": {
+            "_comment": "Question about downloading a report",
+            "question": "Would you like to download a report with all the information we’ve discussed?",
+            "options": [
+                "No, Thankyou!",
+                "Download!"
+            ]
+        }
+    }
+}

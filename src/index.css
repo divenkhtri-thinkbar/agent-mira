@@ -1,0 +1,234 @@
+@import url("/public/css/clash-display.css");
+@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.6rem;
+}
+
+body {
+  cursor: none;
+}
+
+* {
+  cursor: inherit;
+}
+
+/* Circular cursor */
+.circular-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-out;
+}
+
+.circular-cursor.cursor-hover {
+  transform: translate(-50%, -50%) scale(1.7);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in {
+  animation: slide-in 0.5s ease-in-out;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-select-content-available-height);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-select-content-available-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-left {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-right {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 0.5s ease-in-out forwards;
+}
+
+.animate-slide-in-from-right {
+  animation: slide-in-from-right 0.5s ease-in-out forwards;
+}
+
+.animate-slide-in-from-left {
+  animation: slide-in-from-left 0.5s ease-in-out forwards;
+}
+
+.textColor {
+  color: #1354b6;
+}
+
+.agentChat {
+  font-family: Geologica;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #272727;
+}
+
+.persentPropertyDetailsText {
+  font-family: Geologica;
+  font-weight: 200;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0%;
+  opacity: 50;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 2s linear infinite;
+}
+
+/* Slide-in animation from left to right */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.slide-in-from-left {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+.custom-resize-cursor {
+  cursor: url("/src/assets/images/user.png") 16 16, col-resize;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* For vertical scrollbars */
+  height: 6px; /* For horizontal scrollbars */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #797979; /* Scrollbar color */
+  border-radius: 3px; /* Curved edges */
+  opacity: 0; /* Hidden by default for other components */
+  transition: opacity 0.2s;
+}
+
+/* Hover behavior for other components */
+.group:hover .custom-scrollbar::-webkit-scrollbar-thumb {
+  opacity: 0.7; /* Visible on hover for other components */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker on hover */
+}
+
+/* Specific rule for ProgressNav to keep scrollbar always visible */
+.progress-nav .custom-scrollbar::-webkit-scrollbar-thumb {
+  opacity: 0.7; /* Always visible for ProgressNav */
+}
+
+/* Firefox support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Hover behavior for other components in Firefox */
+.group:hover .custom-scrollbar {
+  scrollbar-color: #c2c0c0 transparent;
+}
+
+/* Specific rule for ProgressNav in Firefox */
+.progress-nav .custom-scrollbar {
+  scrollbar-color: #c2c0c0 transparent; /* Always visible for ProgressNav */
+}
+
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
