@@ -90,11 +90,11 @@ export function PropertyStats({
 
             {/* lotSize */}
             <div className="flex items-center gap-2">
-                <div className="px-3 py-2 rounded-full bg-[#1354B6] flex items-center justify-center">
-                    <img src={calendar} alt="HOA" className="w-full h-full" />
+                <div className="px-3 lg:px-3.5 py-2 rounded-full bg-[#1354B6] flex items-center justify-center">
+                    <img src={calendar} alt="HOA" className="lg:max-w-[20px] lg:w-[24px] lg:h-[24px] w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] text-[22px] leading-5 text-[#1354B6]">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[20px] text-[22px] leading-5 text-[#1354B6]">
                         {lotSize?.toLocaleString()}
                     </span>
                     <span className="font-[Geologica] font-extralight text-xs leading-3 text-[#1354B6]">
@@ -109,7 +109,7 @@ export function PropertyStats({
                     <img src={user} alt="Property Type" className="w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] text-[22px] leading-5 text-[#1354B6] text-wrap">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[20px] text-[22px] leading-5 text-[#1354B6] text-wrap">
                         {propertyType}
                     </span>
                 </div>

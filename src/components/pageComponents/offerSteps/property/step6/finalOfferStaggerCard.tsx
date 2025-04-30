@@ -180,11 +180,11 @@ export function FinalOfferStaggerCard({
                     <div className="grid grid-cols-5 gap-2">
                         {/* Win Probability (2.8s) */}
                         <motion.div
-                            className="bg-white rounded-[18px] p-4 text-center"
+                            className="bg-white rounded-[18px] p-4 lg:px-0 text-center"
                             variants={itemVariants}
                             transition={{ delay: 2.8 }}
                         >
-                            <div className="text-xs sm:text-sm textColor font-[Geologica] font-light">
+                            <div className="text-xs lg:text-[14px]  sm:text-sm textColor font-[Geologica] font-light">
                                 {liveMetrics.winProbability}
                             </div>
                             <div className="text-xl sm:text-2xl md:text-[28px] font-[ClashDisplay-Medium] textColor py-4 sm:py-2 md:py-2">

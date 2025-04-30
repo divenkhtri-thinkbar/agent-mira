@@ -65,36 +65,36 @@ export default function ComprableProperty() {
 
     // Get CMA data
     const getCma = useCallback(async (mlsid: string) => {
-        if(propertyCmaListings?.comparableProperty?.length > 0){
+        if (propertyCmaListings?.comparableProperty?.length > 0) {
             return;
         }
-        
+
         try {
             showLoader();
             const cmaResponse = await getCmaList(mlsid);
             if (cmaResponse.code === 200) {
                 dispatch(setCmaList(cmaResponse.response as any));
                 hideLoader();
-            } 
-            else{
+            }
+            else {
                 hideLoader();
             }
-        } 
+        }
         catch (error) {
             hideLoader();
         }
     }, [dispatch]);
 
     useEffect(() => {
-        if(propertyInfo?.propertyId && !hasFetchedData.current) {
+        if (propertyInfo?.propertyId && !hasFetchedData.current) {
             getCma(propertyInfo?.propertyId as string);
             hasFetchedData.current = true;
         }
     }, []);
 
     useEffect(() => {
-        if(propertyCmaListings && propertyCmaListings.comparableProperty && propertyCmaListings.comparableProperty.length > 0) {
-            const mappedProperties: Property[] = propertyCmaListings.comparableProperty.map((property : any) => {
+        if (propertyCmaListings && propertyCmaListings.comparableProperty && propertyCmaListings.comparableProperty.length > 0) {
+            const mappedProperties: Property[] = propertyCmaListings.comparableProperty.map((property: any) => {
                 return {
                     imageUrl: Array.isArray(property?.images) ? property.images : property?.images ? [property.images] : [],
                     matchPercentage: parseInt(property.FinalMatchScore?.replace(/[^0-9]/g, ""), 10),
@@ -120,9 +120,9 @@ export default function ComprableProperty() {
             setProperties([]);
         }
 
-        if(qnaQuestions && qnaQuestions.length > 0) {
+        if (qnaQuestions && qnaQuestions.length > 0) {
             const ques = qnaQuestions.some((question) => question.right_panel === "comparable-properties" && question?.response?.length > 0);
-            if(ques) {
+            if (ques) {
                 setRightSidePanel(true);
             }
         }
@@ -136,7 +136,7 @@ export default function ComprableProperty() {
         address: { street: "", city: "", state: "", zip: "" },
         distance: 0,
         beds: 0,
-        baths: 0, 
+        baths: 0,
         sqft: 0,
         similarFeatures: [],
         keyDifferences: [],
@@ -157,7 +157,7 @@ export default function ComprableProperty() {
     };
 
     const handleQuestionClick = (que: any) => {
-        if(que.right_panel === "comparable-properties" && que?.response?.length > 0) {
+        if (que.right_panel === "comparable-properties" && que?.response?.length > 0) {
             setRightSidePanel(true);
         }
         else {
@@ -218,7 +218,7 @@ export default function ComprableProperty() {
                     <ResizablePanel
                         leftPanel={
                             <div className="relative z-10 h-full bg-white">
-                                {(!propertyCmaListings || Object.keys(propertyCmaListings).length === 0 || propertyCmaListings?.comparableProperty?.length === 0)  && <>
+                                {(!propertyCmaListings || Object.keys(propertyCmaListings).length === 0 || propertyCmaListings?.comparableProperty?.length === 0) && <>
                                     <div className="flex flex-col h-[100%] w-full mx-auto bg-white relative">
                                         {/* Chat Header */}
                                         <ChatHeader />
@@ -243,7 +243,7 @@ export default function ComprableProperty() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </>}
                                 {propertyCmaListings && Object.keys(propertyCmaListings).length > 0 && propertyCmaListings?.comparableProperty?.length > 0 && <MiraQnaContainer onQuestionClick={handleQuestionClick} />}
                             </div>
@@ -254,7 +254,7 @@ export default function ComprableProperty() {
                                     <PropertyCardSkeleton propertyInfo={propertyInfo} />
                                 </>}
 
-                    
+
                                 {propertyCmaListings && propertyCmaListings?.comparableProperty?.length > 0 && rightSidePanel && <>
                                     <div className="w-full slide-in-from-left">
                                         <div className="flex flex-col px-14 py-4 w-full h-full items-center justify-center">
@@ -293,9 +293,9 @@ export default function ComprableProperty() {
                                                             <div className="relative h-full w-full">
                                                                 {prevImageIndex !== null && direction && (
                                                                     <div className="absolute inset-0 transition-transform duration-500 ease-in-out">
-                                                                        <img 
-                                                                            src={imageUrl[prevImageIndex]} 
-                                                                            alt="Property" 
+                                                                        <img
+                                                                            src={imageUrl[prevImageIndex]}
+                                                                            alt="Property"
                                                                             className={cn(
                                                                                 "h-full w-full object-cover rounded-3xl",
                                                                                 direction === "right" && "animate-slide-out-left",
@@ -304,11 +304,11 @@ export default function ComprableProperty() {
                                                                         />
                                                                     </div>
                                                                 )}
-                                                                
+
                                                                 <div className="absolute inset-0 transition-transform duration-500 ease-in-out">
-                                                                    <img 
-                                                                        src={imageUrl[currentImageIndex]} 
-                                                                        alt="Property" 
+                                                                    <img
+                                                                        src={imageUrl[currentImageIndex]}
+                                                                        alt="Property"
                                                                         className={cn(
                                                                             "h-full w-full object-cover rounded-3xl",
                                                                             direction === "right" && "animate-slide-in-from-right",

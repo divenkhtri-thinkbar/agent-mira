@@ -87,7 +87,7 @@ export default function Home({ onButtonRef }: HomeProps) {
             <img
               src={agent}
               alt="Professional"
-              className="h-auto w-full max-w-[80%] md:max-w-[40%] md:min-w-[30%] md:h-[400px] lg:h-[500px] xl:h-[600px] object-contain mt-8 xl:-mb-10 md:mt-0 xl:mt-0 xl:self-end relative z-0"
+              className="h-auto w-full max-w-[80%] md:max-w-[40%] md:min-w-[30%] md:h-[400px] lg:h-[430px] xl:h-[500px] object-contain mt-8 xl:-mb-10 md:mt-0 xl:mt-0 xl:self-end relative z-0"
             />
           </div>
 
@@ -101,7 +101,7 @@ export default function Home({ onButtonRef }: HomeProps) {
               <div className="flex-1 bg-[#4ADAA8] text-[#1E4DB7] font-[ClashDisplay-Medium] text-lg sm:text-xl md:text-2xl lg:text-[30px] xl:text-[35px] 2xl:text-[38px] leading-tight text-center flex items-center justify-center rounded-full">
                 {homepage.buttonText}
               </div>
-              <div className="h-14 sm:h-16 xl:h-17 2xl:h-20 w-14 sm:w-16 xl:w-17 2xl:w-20 flex items-center justify-center bg-[#4ADAA8] text-[#1E4DB7] rounded-full transition-transform group-hover:translate-x-2">
+              <div className="h-14 sm:h-16 lg:h-20 xl:h-20 2xl:h-20 w-14 sm:w-16 lg:w-20 xl:w-20 2xl:w-20 flex items-center justify-center bg-[#4ADAA8] text-[#1E4DB7] rounded-full transition-transform group-hover:translate-x-2">
                 <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </a>

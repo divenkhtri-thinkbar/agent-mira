@@ -49,10 +49,10 @@ export default function CurrentMarketConditions() {
             }
             setIsLoading(false);
             setIsAPILoading(false);
-        } 
+        }
         catch (error) {
             console.error("Error fetching market analysis:", error);
-        } 
+        }
         finally {
             setIsLoading(false);
             setIsAPILoading(false);
@@ -64,7 +64,7 @@ export default function CurrentMarketConditions() {
         if (question?.response_options?.length > 0) {
             setIsLoading(true);
             let optionId;
-            
+
             // Check for existing response first
             if (question?.response?.length > 0) {
                 const option = question.response_options.find(
@@ -72,7 +72,7 @@ export default function CurrentMarketConditions() {
                 );
                 optionId = option?.option_id;
             }
-            
+
             // If no existing response, use first option
             if (!optionId) {
                 optionId = question.response_options[0]?.option_id;
@@ -117,10 +117,10 @@ export default function CurrentMarketConditions() {
                 const numScore = parseFloat(score);
                 if (numScore < 2) {
                     setMarketType("seller");
-                } 
+                }
                 else if (numScore > 2.5) {
                     setMarketType("buyer");
-                } 
+                }
                 else {
                     setMarketType("balanced");
                 }
@@ -132,10 +132,10 @@ export default function CurrentMarketConditions() {
     const getStats = () => {
         // Use the market data from API response, stored in state
         const tabData = activeTab;
-        
+
         // Add a check to ensure marketData and the active tab data exist
         if (!marketData || !marketData[tabData]) return [];
-        
+
         const activeTabData = marketData[tabData];
         // Filter out the score field which is handled separately by Speedometer
         return Object.entries(activeTabData)
@@ -166,18 +166,18 @@ export default function CurrentMarketConditions() {
                     value: statData.value,
                     icon: key === "homes_sold" ? "$" :
                         key === "absorption_rate" ? "A" :
-                        key === "active_listings" ? "L" :
-                        key === "cash_transactions" ? "$" :
-                        key === "listings_with_price_cut" ? "L" :
-                        key === "median_days_on_market" ? "D" :
-                        key === "median_days_to_cut_price" ? "$" :
-                        key === "net_addition" ? "N" :
-                        key === "median_close_price" ? "P" :
-                        key === "median_close_price_per_sqft" ? "S" :
-                        key === "median_list_price" ? "L" :
-                        key === "sale_to_list_price_ratio" ? "P" :
-                        key === "sold_under_asking" ? "$" :
-                        key === "months_of_inventory" ? "M" : "",
+                            key === "active_listings" ? "L" :
+                                key === "cash_transactions" ? "$" :
+                                    key === "listings_with_price_cut" ? "L" :
+                                        key === "median_days_on_market" ? "D" :
+                                            key === "median_days_to_cut_price" ? "$" :
+                                                key === "net_addition" ? "N" :
+                                                    key === "median_close_price" ? "P" :
+                                                        key === "median_close_price_per_sqft" ? "S" :
+                                                            key === "median_list_price" ? "L" :
+                                                                key === "sale_to_list_price_ratio" ? "P" :
+                                                                    key === "sold_under_asking" ? "$" :
+                                                                        key === "months_of_inventory" ? "M" : "",
                     subStats: subStats.length > 0 ? subStats : null
                 };
             });
@@ -188,16 +188,16 @@ export default function CurrentMarketConditions() {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
+
 
     const getHeaderText = () => {
-        if(currentOptionId === "price_trends"){ 
+        if (currentOptionId === "price_trends") {
             return headerOptions.priceTrends;
         }
-        else if(currentOptionId === "supply_demand"){
+        else if (currentOptionId === "supply_demand") {
             return headerOptions.supplyAvailability;
         }
-        else if(currentOptionId === "market_type"){
+        else if (currentOptionId === "market_type") {
             return headerOptions.demandCompetition;
         }
     };
@@ -212,7 +212,11 @@ export default function CurrentMarketConditions() {
             return { width: 350, height: 200, ringWidth: 130 };
         } else if (width >= 1280) {
             return { width: 300, height: 200, ringWidth: 110 };
-        } else if (width >= 1024) {
+        }
+        else if(width >= 1250){
+            return { width: 220, height: 180, ringWidth: 150 };
+        }
+        else if (width >= 1024) {
             return { width: 250, height: 200, ringWidth: 170 };
         } else {
             return { width: 200, height: 200, ringWidth: 170 };
@@ -262,7 +266,7 @@ export default function CurrentMarketConditions() {
                                         <div className="overflow-hidden">
                                             {/* All 3 tabs */}
                                             <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-                                            
+
                                             {(marketData && marketData[activeTab]?.message) || (!marketData || Object.keys(marketData).length === 0) ? (
                                                 // Show message when it exists
                                                 <div className="bg-white p-6 border-4 border-[#B8D4FF] w-full max-w-3xl mx-auto text-center">
@@ -280,7 +284,7 @@ export default function CurrentMarketConditions() {
                                                                 <div className="absolute w-full font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg leading-7 textColor flex justify-center">
                                                                     <span className="text-blue-900">{marketData[activeTab]?.name}</span>
                                                                 </div>
-                                                                
+
                                                                 <div className="mt-5">
                                                                     <ReactSpeedometer
                                                                         maxValue={5}
@@ -297,7 +301,9 @@ export default function CurrentMarketConditions() {
                                                                         textColor="transparent"
                                                                     />
                                                                 </div>
-                                                                <div className="absolute font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg leading-4 text-wrap text-white/80 text-center" style={{ left: "50%", top: "25%", transform: "translateX(-50%)" }}>
+                                                                <div className="absolute font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg 
+                                                                lg:text-[20px]
+                                                                leading-4 text-wrap text-white/80 text-center" style={{ left: "50%", top: "25%", transform: "translateX(-50%)" }}>
                                                                     {speedometerText.balancedMarket} <br />
                                                                 </div>
                                                                 <div className="absolute w-full font-[ClashDisplay-Medium] text-sm sm:text-base md:text-lg leading-7 textColor flex justify-between mb-0">
@@ -350,7 +356,7 @@ export default function CurrentMarketConditions() {
                                                                             )}
                                                                         </div>
                                                                     </div>
-                                                                </>} 
+                                                                </>}
                                                             </>
                                                         ))}
                                                     </div>
