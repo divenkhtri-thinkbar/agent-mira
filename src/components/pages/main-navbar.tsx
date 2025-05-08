@@ -162,7 +162,7 @@ export function MainNavbar({ currentStep }: ProgressNavProps) {
     }, [steps, questionList, qnaQuestions]);
 
     return (
-        <div className="w-full max-w-[1920px] mx-auto group progress-nav">
+        <div className="w-full mx-auto group progress-nav">
             <div className={cn("relative bg-[#0B43BE] w-full rounded-none overflow-x-auto overflow-y-hidden custom-scrollbar whitespace-nowrap", windowWidth <= 1350 ? "h-[96px]" : "h-[80px]")} >
                 {navSteps.map((step: any, index: any) => {
                     const isCompleted = (index + 1) <= currentStep;

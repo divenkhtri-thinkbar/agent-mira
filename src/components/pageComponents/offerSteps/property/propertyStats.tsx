@@ -33,7 +33,7 @@ export function PropertyStats({
                     <img src={bed} alt="Beds" className="w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] text-[22px] leading-5 text-[#1354B6]">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[14px] xl-mid xl:text-[18px] leading-5 text-[#1354B6]">
                         {beds}
                     </span>
                     <span className="font-[Geologica] font-extralight text-xs leading-3 text-[#1354B6]">
@@ -48,7 +48,7 @@ export function PropertyStats({
                     <img src={bath} alt="Baths" className="w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] text-[22px] leading-5 text-[#1354B6]">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[14px] xl:text-[18px] leading-5 text-[#1354B6]">
                         {baths}
                     </span>
                     <span className="font-[Geologica] font-extralight text-xs leading-3 text-[#1354B6]">
@@ -63,7 +63,7 @@ export function PropertyStats({
                     <img src={calendarcheck} alt="SqFt" className="w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] text-[22px] leading-5 text-[#1354B6]">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[14px] xl:text-[18px] leading-5 text-[#1354B6]">
                         <NumberCounter endValue={livingArea} duration={1000} />
                     </span>
                     <span className="font-[Geologica] font-extralight text-xs leading-3 text-[#1354B6]">
@@ -78,7 +78,7 @@ export function PropertyStats({
                     <img src={home} alt="Built In" className="w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] text-[22px] leading-5 text-[#1354B6]">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[14px] xl:text-[18px] leading-5 text-[#1354B6]">
                         {/* <NumberCounter endValue={builtIn} duration={1000} /> */}
                         {builtIn}
                     </span>
@@ -94,7 +94,7 @@ export function PropertyStats({
                     <img src={calendar} alt="HOA" className="lg:max-w-[20px] lg:w-[24px] lg:h-[24px] w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] lg:text-[20px] text-[22px] leading-5 text-[#1354B6]">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[14px] xl:text-[18px] leading-5 text-[#1354B6]">
                         {lotSize?.toLocaleString()}
                     </span>
                     <span className="font-[Geologica] font-extralight text-xs leading-3 text-[#1354B6]">
@@ -106,10 +106,10 @@ export function PropertyStats({
             {/* Property Type */}
             <div className="flex items-center gap-2">
                 <div className="px-4 py-2 rounded-full bg-[#1354B6] flex items-center justify-center">
-                    <img src={user} alt="Property Type" className="w-full h-full" />
+                    <img src={user} alt="Property Type" className="lg:max-w-[20px] lg:w-[24px] lg:h-[24px] w-full h-full" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-[ClashDisplay-Medium] lg:text-[20px] text-[22px] leading-5 text-[#1354B6] text-wrap">
+                    <span className="font-[ClashDisplay-Medium] lg:text-[14px] xl:text-[18px] leading-none xl:leading-5 text-[#1354B6] text-wrap">
                         {propertyType}
                     </span>
                 </div>

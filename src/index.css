@@ -250,3 +250,9 @@
   display: inline-block;
   animation: dots 1.5s steps(3, end) infinite;
 }
+
+@media(min-width:1280px) and (max-width:1299){
+  .xl-mid{
+    font-size: 16px !important;
+  }
+}

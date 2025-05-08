@@ -97,7 +97,7 @@ export default function ComprableProperty() {
             const mappedProperties: Property[] = propertyCmaListings.comparableProperty.map((property: any) => {
                 return {
                     imageUrl: Array.isArray(property?.images) ? property.images : property?.images ? [property.images] : [],
-                    matchPercentage: parseInt(property.FinalMatchScore?.replace(/[^0-9]/g, ""), 10),
+                    // matchPercentage: parseInt(property.FinalMatchScore?.replace(/[^0-9]/g, ""), 10),
                     price: parseInt(property.ClosePrice?.replace(/[^0-9]/g, ""), 10),
                     address: {
                         street: property.UnparsedAddress?.split(", ")[0] || "",
@@ -257,7 +257,7 @@ export default function ComprableProperty() {
 
                                 {propertyCmaListings && propertyCmaListings?.comparableProperty?.length > 0 && rightSidePanel && <>
                                     <div className="w-full slide-in-from-left">
-                                        <div className="flex flex-col px-14 py-4 w-full h-full items-center justify-center">
+                                        <div className="flex flex-col px-4 xl:px-14 py-4 w-full h-full items-center justify-center">
                                             <h1 className="font-[ClashDisplay-Medium] text-xl leading-9 textColor mb-4 text-center">
                                                 {labels.title}
                                             </h1>

@@ -214,10 +214,10 @@ export default function CurrentMarketConditions() {
             return { width: 300, height: 200, ringWidth: 110 };
         }
         else if(width >= 1250){
-            return { width: 220, height: 180, ringWidth: 150 };
+            return { width: 300, height: 150, ringWidth: 110 };
         }
         else if (width >= 1024) {
-            return { width: 250, height: 200, ringWidth: 170 };
+            return { width: 200, height: 200, ringWidth: 50 };
         } else {
             return { width: 200, height: 200, ringWidth: 170 };
         }
@@ -227,6 +227,7 @@ export default function CurrentMarketConditions() {
 
     useEffect(() => {
         const handleResize = () => {
+            // console.log("resizinguseffect...");
             setDimensions(getSpeedometerDimensions());
         };
 
@@ -287,6 +288,7 @@ export default function CurrentMarketConditions() {
 
                                                                 <div className="mt-5">
                                                                     <ReactSpeedometer
+                                                                      key={`${dimensions.width}-${dimensions.height}`} // force remount on size change
                                                                         maxValue={5}
                                                                         value={marketData[activeTab]?.score || 0}
                                                                         segments={3}

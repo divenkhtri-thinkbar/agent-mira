@@ -186,7 +186,7 @@ const UserQueryMessage = ({ propertyInfo, currentPage, chatHistory, loadingQuest
                             <div ref={chatBodyRef}
                                 className={`
                                     rounded-lg overflow-y-auto transition-all duration-500 ease-in-out chat-body
-                                    ${isChatExpanded ? "max-h-[400px] p-4" : "max-h-0 p-0"}
+                                    ${isChatExpanded ? "max-h-[200px] xl:max-h-[400px] p-4" : "max-h-0 p-0"}
                                     ${isChatExpanded ? "overflow-auto" : "overflow-hidden"}
                                 `}
                             >

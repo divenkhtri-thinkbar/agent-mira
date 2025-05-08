@@ -23,13 +23,13 @@ const Dropdown = () => {
                 What stage are you at in your home journey?
             </label>
             <div
-                className={`w-full bg-white border border-gray-300 shadow-sm ${isOpen ? "rounded-[24px]" : "rounded-full"
-                    }`}
+                className={`w-full bg-white border border-gray-300 shadow-sm ${isOpen ? "rounded-t-[24px]" : "rounded-full"}
+                    `}
             >
                 {/* Selected option / Trigger with fixed chevron */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full px-4 py-2 text-left relative h-[45px]"
+                    className={`w-full px-4 py-2 text-left relative h-[45px] `}
                 >
                     <span
                         className={`block truncate ${selectedOption === "Select an option"
@@ -59,7 +59,7 @@ const Dropdown = () => {
 
                 {/* Options list - Expands within the same box, without affecting the chevron */}
                 {isOpen && (
-                    <div className="overflow-hidden transition-all duration-300">
+                    <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "absolute bg-white rounded-b-[24px]" : null }`}>
                         {options.map((option) => (
                             <button
                                 key={option}
